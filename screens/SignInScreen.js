@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { 
     View, 
     Text, 
@@ -7,7 +7,8 @@ import {
     Platform,
     StyleSheet ,
     StatusBar,
-    Alert
+    Alert,
+    Button
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -19,6 +20,10 @@ import { useTheme } from 'react-native-paper';
 import { AuthContext } from '../components/context';
 
 import Users from '../model/users';
+
+
+import auth from '@react-native-firebase/auth';
+
 
 const SignInScreen = ({navigation}) => {
 
@@ -34,6 +39,34 @@ const SignInScreen = ({navigation}) => {
     const { colors } = useTheme();
 
     const { signIn } = React.useContext(AuthContext);
+
+
+
+
+
+  // If null, no SMS has been sent
+  const [confirm, setConfirm] = useState(null);
+
+  const [code, setCode] = useState('');
+
+  // Handle the button press
+  async function signInWithPhoneNumber(phoneNumber) {
+    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+    setConfirm(confirmation);
+  }
+
+  async function confirmCode() {
+    try {
+      await confirm.confirm(code);
+    } catch (error) {
+      console.log('Invalid code.');
+    }
+  }
+
+
+
+
+
 
     const textInputChange = (val) => {
         if( val.trim().length >= 4 ) {
@@ -111,6 +144,30 @@ const SignInScreen = ({navigation}) => {
         }
         signIn(foundUser);
     }
+
+
+
+
+
+
+ if (!confirm) {
+    return (
+      <Button
+        title="Phone Number Sign In"
+        onPress={() => signInWithPhoneNumber('+380632373202')}
+      />
+    );
+  }
+
+  return (
+    <>
+      <TextInput value={code} onChangeText={text => setCode(text)} />
+      <Button title="123456" onPress={() => confirmCode()} />
+    </>
+  );
+
+
+
 
     return (
       <View style={styles.container}>
