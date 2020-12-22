@@ -41,7 +41,7 @@ const SplashScreen = ({navigation}) => {
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
                 <LinearGradient
-                    colors={['#FFA07A', '#FF6347']}
+                    colors={['#cd002a', '#cd0000']}
                     style={styles.signIn}
                 >
                     <Text style={styles.textSign}>Get Started</Text>
@@ -61,12 +61,12 @@ const SplashScreen = ({navigation}) => {
 export default SplashScreen;
 
 const {height} = Dimensions.get("screen");
-const height_logo = height * 0.28;
+const height_logo = height * 0.38;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
-    backgroundColor: '#FF6347'
+    backgroundColor: '#000000'
   },
   header: {
       flex: 2,
