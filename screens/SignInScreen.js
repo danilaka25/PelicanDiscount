@@ -25,6 +25,12 @@ import Users from '../model/users';
 import auth from '@react-native-firebase/auth';
 
 
+//import { useNavigation } from '@react-navigation/native';
+
+
+//import HomeScreen from './HomeScreen';
+
+
 const SignInScreen = ({navigation}) => {
 
     const [data, setData] = React.useState({
@@ -35,13 +41,8 @@ const SignInScreen = ({navigation}) => {
         isValidUser: true,
         isValidPassword: true,
     });
-
     const { colors } = useTheme();
-
     const { signIn } = React.useContext(AuthContext);
-
-
-
 
 
   // If null, no SMS has been sent
@@ -55,9 +56,17 @@ const SignInScreen = ({navigation}) => {
     setConfirm(confirmation);
   }
 
+   
+
+
   async function confirmCode() {
     try {
+
       await confirm.confirm(code);
+      console.log('Valid code.');
+
+      
+
     } catch (error) {
       console.log('Invalid code.');
     }
@@ -150,12 +159,15 @@ const SignInScreen = ({navigation}) => {
 
 
 
+
  if (!confirm) {
     return (
-      <Button
-        title="Phone Number Sign In"
-        onPress={() => signInWithPhoneNumber('+380632373202')}
-      />
+        
+        <Button
+            title="Phone Number Sign In"
+            onPress={() => signInWithPhoneNumber('+380632373202')}
+        />
+         
     );
   }
 

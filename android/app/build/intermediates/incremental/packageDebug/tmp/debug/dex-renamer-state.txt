@@ -1,4 +1,4 @@
-#Tue Dec 22 11:59:12 EET 2020
+#Tue Dec 22 14:17:26 EET 2020
 base.2=/Users/user/Desktop/FoodPelican/android/app/build/intermediates/dex/debug/mergeDexDebug/classes3.dex
 path.2=classes3.dex
 base.1=/Users/user/Desktop/FoodPelican/android/app/build/intermediates/dex/debug/mergeDexDebug/classes2.dex
