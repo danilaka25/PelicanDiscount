@@ -15,8 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import StarRating from '../components/StarRating';
-
+ 
 import Barcode from "react-native-barcode-builder";
 
 const HomeScreen = ({navigation}) => {
@@ -26,7 +25,7 @@ const HomeScreen = ({navigation}) => {
     <ScrollView style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
       <View style={styles.sliderContainer}>
-         <Barcode value="Hello World" format="CODE128" />
+         <Barcode value="Hello World"  format="CODE128" background="#000000" lineColor="#cd0000"/>
       </View>
 
       <View style={styles.categoryContainer}>
@@ -82,65 +81,7 @@ const HomeScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.cardsWrapper}>
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#333',
-          }}>
-          Recently Viewed
-        </Text>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/food-banner2.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/food-banner3.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/food-banner4.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
-            <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
-            </Text>
-          </View>
-        </View>
-      </View>
+      
     </ScrollView>
   );
 };
@@ -150,6 +91,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
   },
   sliderContainer: {
     height: 200,
