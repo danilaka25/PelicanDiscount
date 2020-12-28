@@ -17,6 +17,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import StarRating from '../components/StarRating';
 
+import Barcode from "react-native-barcode-builder";
+
 const HomeScreen = ({navigation}) => {
   const theme = useTheme();
 
@@ -24,33 +26,7 @@ const HomeScreen = ({navigation}) => {
     <ScrollView style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
       <View style={styles.sliderContainer}>
-        <Swiper
-          autoplay
-          horizontal={false}
-          height={200}
-          activeDotColor="#FF6347">
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner1.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner2.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner3.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-        </Swiper>
+         <Barcode value="Hello World" format="CODE128" />
       </View>
 
       <View style={styles.categoryContainer}>
