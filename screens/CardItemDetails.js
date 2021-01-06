@@ -20,6 +20,7 @@ const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
 
 const CardItemDetails = ({route}) => {
+  
   const itemData = route.params.itemData;
   const navTitleView = useRef(null);
 

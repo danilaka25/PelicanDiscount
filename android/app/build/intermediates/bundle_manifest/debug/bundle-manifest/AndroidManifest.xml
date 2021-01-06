@@ -41,8 +41,7 @@
         android:usesCleartextTraffic="true" > <!-- You will only need to add this meta-data tag, but make sure it's a child of application -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
-
+            android:value="AIzaSyDHv9uXOh3qt0LRLEpy41vzqRwhsICgPag" /> <!-- process.env.MAP_API_KEY variable not workink -->
         <activity
             android:name="com.pelicandiscount.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"

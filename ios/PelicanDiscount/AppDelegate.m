@@ -13,6 +13,9 @@
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 #import <GoogleMaps/GoogleMaps.h>
 
+#import <Firebase.h>
+
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];

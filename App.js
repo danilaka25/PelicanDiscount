@@ -27,6 +27,9 @@ import MainTabScreen from './screens/MainTabScreen';
 import SupportScreen from './screens/SupportScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import BookmarkScreen from './screens/BookmarkScreen';
+import ExploreScreen from './screens/ExploreScreen';
+
+
 
 import { AuthContext } from './components/context';
 
@@ -36,8 +39,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const Drawer = createDrawerNavigator();
 
-const App = () => {
-  // const [isLoading, setIsLoading] = React.useState(true);
+const App = ({navigation}) => {
+  
+
+  //const [isLoading, setIsLoading] = true;
   // const [userToken, setUserToken] = React.useState(null); 
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
@@ -140,38 +145,52 @@ const App = () => {
     }
   }), []);
 
+   let userToken = null;
+
   useEffect(() => {
     setTimeout(async() => {
       // setIsLoading(false);
-      let userToken;
-      userToken = null;
+      
+      
       try {
+
+
+
+        
+
+
         userToken = await AsyncStorage.getItem('userToken');
       } catch(e) {
         console.log(e);
       }
+
+
+     
+
+
       // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
-    }, 1000);
+      //dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+    }, 500);
   }, []);
 
-  if( loginState.isLoading ) {
-    return(
-      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <ActivityIndicator size="large"/>
-      </View>
-    );
-  }
+  // if( loginState.isLoading ) {
+  //   return(
+  //     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+  //       <ActivityIndicator size="large"/>
+  //     </View>
+  //   );
+  // }
   return (
     <PaperProvider theme={theme}>
     <AuthContext.Provider value={authContext}>
     <NavigationContainer theme={theme}>
       { loginState.userToken !== null ? (
-        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+        <Drawer.Navigator headerMode='none' drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
           <Drawer.Screen name="SupportScreen" component={SupportScreen} />
           <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
           <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
+          // <Drawer.Screen name="ExploreScreen" component={ExploreScreen} /> 
         </Drawer.Navigator>
       )
     :

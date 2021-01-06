@@ -232,7 +232,7 @@ export default NotificationScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#cccccc',
     flex: 1,
   },
   backTextWhite: {

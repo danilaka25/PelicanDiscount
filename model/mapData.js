@@ -8,59 +8,38 @@ const Images = [
 export const markers = [
     {
       coordinate: {
-        latitude: 22.6293867,
-        longitude: 88.4354486,
+        latitude: 50.41429494075907, 
+        longitude: 30.520019533835047, 
       },
-      title: "Amazing Food Place",
-      description: "This is the best food place",
+      title: "Pelican Rouge Cafe",
+      description: "ст.м. Лыбидская",
       image: Images[0].image,
       rating: 4,
       reviews: 99,
     },
     {
       coordinate: {
-        latitude: 22.6345648,
-        longitude: 88.4377279,
+        latitude: 50.38231766288612, 
+        longitude: 30.457328444387453, 
       },
-      title: "Second Amazing Food Place",
-      description: "This is the second best food place",
+      title: "Pelican Rouge Cafe",
+      description: "Конева 10/1",
       image: Images[1].image,
       rating: 5,
       reviews: 102,
     },
     {
       coordinate: {
-        latitude: 22.6281662,
-        longitude: 88.4410113,
+        latitude: 50.45851795222858, 
+        longitude: 30.517697582953854,
       },
-      title: "Third Amazing Food Place",
-      description: "This is the third best food place",
+      title: "Pelican Rouge Cafe",
+      description: "Андреевский спуск",
       image: Images[2].image,
       rating: 3,
       reviews: 220,
     },
-    {
-      coordinate: {
-        latitude: 22.6341137,
-        longitude: 88.4497463,
-      },
-      title: "Fourth Amazing Food Place",
-      description: "This is the fourth best food place",
-      image: Images[3].image,
-      rating: 4,
-      reviews: 48,
-    },
-    {
-      coordinate: {
-        latitude: 22.6292757,
-        longitude: 88.444781,
-      },
-      title: "Fifth Amazing Food Place",
-      description: "This is the fifth best food place",
-      image: Images[3].image,
-      rating: 4,
-      reviews: 178,
-    },
+    
 ];
 
 export const mapDarkStyle = [
@@ -260,4 +239,3 @@ export const mapDarkStyle = [
       ]
     },
   ];
-

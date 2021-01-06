@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
-MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
+MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
 MERGED from [:react-native-firebase_auth] /Users/user/Desktop/FoodPelican/node_modules/@react-native-firebase/auth/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:react-native-firebase_app] /Users/user/Desktop/FoodPelican/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:firebase-auth:20.0.1] /Users/user/.gradle/caches/transforms-2/files-2.1/d64de1af1618b898b0fb92133cd1c6d6/jetified-firebase-auth-20.0.1/AndroidManifest.xml:17:1-83:12
@@ -13,7 +13,6 @@ MERGED from [com.facebook.flipper:flipper:0.33.1] /Users/user/.gradle/caches/tra
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.33.1] /Users/user/.gradle/caches/transforms-2/files-2.1/a9c06bcaee2efa39f6be9929675a4461/jetified-flipper-network-plugin-0.33.1/AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] /Users/user/.gradle/caches/transforms-2/files-2.1/378b83d8125dc6e340e159e7aba52eb5/jetified-flipper-fresco-plugin-0.33.1/AndroidManifest.xml:8:1-15:12
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/347cf6e8779f5b75eab409963c66866c/multidex-2.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [:react-native-async-storage_async-storage] /Users/user/Desktop/FoodPelican/node_modules/@react-native-async-storage/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_art] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/art/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_async-storage] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_masked-view] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/masked-view/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -50,7 +49,7 @@ MERGED from [com.facebook.fresco:imagepipeline:2.0.0] /Users/user/.gradle/caches
 MERGED from [com.facebook.fresco:nativeimagetranscoder:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/8a42b9f1864b3ce74da0d2a348fe0b96/jetified-nativeimagetranscoder-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/6ae9d3c67fe7f95cb166b0bba65eb696/jetified-imagepipeline-base-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/user/.gradle/caches/transforms-2/files-2.1/a5b66a9a0d42bfc7d94f355282a09a83/jetified-soloader-0.8.2/AndroidManifest.xml:2:1-13:12
-MERGED from [com.github.yalantis:ucrop:2.2.5-native] /Users/user/.gradle/caches/transforms-2/files-2.1/e382b08590a18275f9c60c8be5426280/jetified-ucrop-2.2.5-native/AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/user/.gradle/caches/transforms-2/files-2.1/ae3f8b5ae9133af246db204231bf0188/jetified-ucrop-2.2.6-native/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/2f25af708f4906fa8ab542335fac19a0/material-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/f5476fc673dacd71bf19e94760c049d3/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/f6b26a06d2859f32a33dabf92c4ce938/jetified-appcompat-resources-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -94,13 +93,13 @@ INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/debug/AndroidManif
 		INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/debug/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
 		INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/debug/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/debug/AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-34:12
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:1-35:12
 		INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:1:11-69
@@ -135,9 +134,9 @@ ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.
 	android:name
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:7:19-63
 application
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-32:19
-MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-32:19
-MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-32:19
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-33:19
+MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-33:19
+MERGED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:9:5-33:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] /Users/user/.gradle/caches/transforms-2/files-2.1/d64de1af1618b898b0fb92133cd1c6d6/jetified-firebase-auth-20.0.1/AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] /Users/user/.gradle/caches/transforms-2/files-2.1/d64de1af1618b898b0fb92133cd1c6d6/jetified-firebase-auth-20.0.1/AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/cf264438c6cc1090fae1cbb3936e352f/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
@@ -205,37 +204,37 @@ MERGED from [com.facebook.soloader:annotation:0.8.2] /Users/user/.gradle/caches/
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:10:7-38
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:10:7-38
 meta-data#com.google.android.geo.API_KEY
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:17:5-19:37
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:17:5-19:64
 	android:value
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:19:7-35
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:19:7-62
 	android:name
 		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:18:7-52
 activity#com.pelicandiscount.MainActivity
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:20:7-30:18
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:21:7-31:18
 	android:label
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:22:9-41
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:23:9-41
 	android:launchMode
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:24:9-40
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:25:9-40
 	android:windowSoftInputMode
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:25:9-51
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:26:9-51
 	android:configChanges
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:23:9-86
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:24:9-86
 	android:name
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:21:9-37
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:22:9-37
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:26:9-29:25
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:27:9-30:25
 action#android.intent.action.MAIN
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:27:13-65
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:28:13-65
 	android:name
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:27:21-62
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:28:21-62
 category#android.intent.category.LAUNCHER
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:28:13-73
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:29:13-73
 	android:name
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:28:23-70
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:29:23-70
 activity#com.facebook.react.devsupport.DevSettingsActivity
-ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:31:7-84
+ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:32:7-84
 	android:name
-		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:31:17-81
+		ADDED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml:32:17-81
 uses-sdk
 INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/user/Desktop/FoodPelican/android/app/src/main/AndroidManifest.xml
@@ -256,8 +255,6 @@ MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] /Users/user/.gra
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] /Users/user/.gradle/caches/transforms-2/files-2.1/378b83d8125dc6e340e159e7aba52eb5/jetified-flipper-fresco-plugin-0.33.1/AndroidManifest.xml:11:5-13:41
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/347cf6e8779f5b75eab409963c66866c/multidex-2.0.0/AndroidManifest.xml:20:5-43
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/347cf6e8779f5b75eab409963c66866c/multidex-2.0.0/AndroidManifest.xml:20:5-43
-MERGED from [:react-native-async-storage_async-storage] /Users/user/Desktop/FoodPelican/node_modules/@react-native-async-storage/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:react-native-async-storage_async-storage] /Users/user/Desktop/FoodPelican/node_modules/@react-native-async-storage/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_art] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/art/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_art] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/art/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_async-storage] /Users/user/Desktop/FoodPelican/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -330,8 +327,8 @@ MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/user/.gradle/c
 MERGED from [com.facebook.fresco:imagepipeline-base:2.0.0] /Users/user/.gradle/caches/transforms-2/files-2.1/6ae9d3c67fe7f95cb166b0bba65eb696/jetified-imagepipeline-base-2.0.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/user/.gradle/caches/transforms-2/files-2.1/a5b66a9a0d42bfc7d94f355282a09a83/jetified-soloader-0.8.2/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.soloader:soloader:0.8.2] /Users/user/.gradle/caches/transforms-2/files-2.1/a5b66a9a0d42bfc7d94f355282a09a83/jetified-soloader-0.8.2/AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.yalantis:ucrop:2.2.5-native] /Users/user/.gradle/caches/transforms-2/files-2.1/e382b08590a18275f9c60c8be5426280/jetified-ucrop-2.2.5-native/AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.yalantis:ucrop:2.2.5-native] /Users/user/.gradle/caches/transforms-2/files-2.1/e382b08590a18275f9c60c8be5426280/jetified-ucrop-2.2.5-native/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/user/.gradle/caches/transforms-2/files-2.1/ae3f8b5ae9133af246db204231bf0188/jetified-ucrop-2.2.6-native/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/user/.gradle/caches/transforms-2/files-2.1/ae3f8b5ae9133af246db204231bf0188/jetified-ucrop-2.2.6-native/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.material:material:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/2f25af708f4906fa8ab542335fac19a0/material-1.1.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/2f25af708f4906fa8ab542335fac19a0/material-1.1.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/user/.gradle/caches/transforms-2/files-2.1/f5476fc673dacd71bf19e94760c049d3/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41

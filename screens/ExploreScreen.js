@@ -12,53 +12,24 @@ import {
   Platform,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-
 import { markers, mapDarkStyle, mapStandardStyle } from '../model/mapData';
-import StarRating from '../components/StarRating';
-
 import { useTheme } from '@react-navigation/native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const ExploreScreen = () => {
+const ExploreScreen = ({navigation}) => {
   const theme = useTheme();
-
   const initialMapState = {
     markers,
-    categories: [
-      { 
-        name: 'Fastfood Center', 
-        icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
-      },
-      {
-        name: 'Restaurant',
-        icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Dineouts',
-        icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Snacks Corner',
-        icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Hotel',
-        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
-      },
-  ],
     region: {
-      latitude: 22.62938671242907,
-      longitude: 88.4354486029795,
-      latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068,
+      latitude: 50.41429494075907, 
+      longitude: 30.520019533835047, 
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
     },
   };
 
@@ -128,12 +99,15 @@ const ExploreScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}  >
+        <FontAwesome name="arrow-left" size={36} color="red" />         
+      </TouchableOpacity>
       <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
-        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
+        customMapStyle={mapStandardStyle}
       >
         {state.markers.map((marker, index) => {
           const scaleStyle = {
@@ -156,8 +130,6 @@ const ExploreScreen = () => {
           );
         })}
       </MapView>
-      
-   
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -198,8 +170,7 @@ const ExploreScreen = () => {
             />
             <View style={styles.textContent}>
               <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-              <StarRating ratings={marker.rating} reviews={marker.reviews} />
-              <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
+               <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
               <View style={styles.button}>
                 <TouchableOpacity
                   onPress={() => {}}
@@ -220,49 +191,16 @@ const ExploreScreen = () => {
     </View>
   );
 };
-
 export default ExploreScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  searchBox: {
-    position:'absolute', 
-    marginTop: Platform.OS === 'ios' ? 40 : 20, 
-    flexDirection:"row",
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf:'center',
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
-  chipsScrollView: {
-    position:'absolute', 
-    top:Platform.OS === 'ios' ? 90 : 80, 
-    paddingHorizontal:10
-  },
-  chipsIcon: {
-    marginRight: 5,
-  },
-  chipsItem: {
-    flexDirection:"row",
-    backgroundColor:'#fff', 
-    borderRadius:20,
-    padding:8,
-    paddingHorizontal:20, 
-    marginHorizontal:10,
-    height:35,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
+  back: {
+    position: 'absolute',
+    zIndex: 1,
+    left:     20,
+    top:      20,
   },
   scrollView: {
     position: "absolute",

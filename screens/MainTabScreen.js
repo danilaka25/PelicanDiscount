@@ -81,6 +81,8 @@ const HomeStackScreen = ({navigation}) => {
   return (
     <HomeStack.Navigator
       screenOptions={{
+        headerShown: false,
+
         headerStyle: {
           backgroundColor: colors.background,
           shadowColor: colors.background, // iOS
@@ -95,48 +97,16 @@ const HomeStackScreen = ({navigation}) => {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'FoodFinder',
-          headerLeft: () => (
-            <View style={{marginLeft: 10}}>
-              <Icon.Button
-                name="ios-menu"
-                size={25}
-                color={colors.text}
-                backgroundColor={colors.background}
-                onPress={() => navigation.openDrawer()}
-              />
-            </View>
-          ),
-          headerRight: () => (
-            <View style={{flexDirection: 'row', marginRight: 10}}>
-              <Icon.Button
-                name="ios-search"
-                size={25}
-                color={colors.text}
-                backgroundColor={colors.background}
-                onPress={() => {}}
-              />
-              <TouchableOpacity
-                style={{paddingHorizontal: 10, marginTop: 5}}
-                onPress={() => {
-                  navigation.navigate('Profile');
-                }}>
-                <Avatar.Image
-                  source={{
-                    uri:
-                      'https://api.adorable.io/avatars/80/abott@adorable.png',
-                  }}
-                  size={30}
-                />
-              </TouchableOpacity>
-            </View>
-          ),
+          headerShown: false,
+          title: 'FoodFinder',         
+          
         }}
       />
       <HomeStack.Screen 
         name="CardListScreen"
         component={CardListScreen}
         options={({route}) => ({
+
           title: route.params.title,
           headerBackTitleVisible: false
         })}
@@ -159,6 +129,7 @@ const HomeStackScreen = ({navigation}) => {
 const NotificationStackScreen = ({navigation}) => (
   <NotificationStack.Navigator
     screenOptions={{
+      headerShown: false,
       headerStyle: {
         backgroundColor: '#1f65ff',
       },

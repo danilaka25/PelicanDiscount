@@ -20,6 +20,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* PelicanDiscountTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PelicanDiscountTests.m */; };
 		2E569DCCEF16798E2D28DF4C /* libPods-PelicanDiscount.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA9ED7E01D46DCC9C8099FC /* libPods-PelicanDiscount.a */; };
 		3DD9E7895713343D5562B3D2 /* libPods-PelicanDiscount-PelicanDiscountTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF5CE18BADFAFA6571686DB /* libPods-PelicanDiscount-PelicanDiscountTests.a */; };
+		CEC2D3A025A31363009EC920 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEC2D39F25A31363009EC920 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		C829761A826623EB3CB2CC0E /* libPods-PelicanDiscount-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PelicanDiscount-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C957F541262345E7DB7D2243 /* libPods-PelicanDiscount-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PelicanDiscount-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAB42F71B48A4D09F2A5C7F9 /* Pods-PelicanDiscount-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelicanDiscount-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-PelicanDiscount-tvOSTests/Pods-PelicanDiscount-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEC2D39F25A31363009EC920 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D670A18DDF95C75CACCA1F21 /* Pods-PelicanDiscount-PelicanDiscountTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelicanDiscount-PelicanDiscountTests.release.xcconfig"; path = "Target Support Files/Pods-PelicanDiscount-PelicanDiscountTests/Pods-PelicanDiscount-PelicanDiscountTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -161,7 +163,6 @@
 				CAB42F71B48A4D09F2A5C7F9 /* Pods-PelicanDiscount-tvOSTests.debug.xcconfig */,
 				9DE69F7CF7140F9C9696B173 /* Pods-PelicanDiscount-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CEC2D39F25A31363009EC920 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* PelicanDiscount */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PelicanDiscountTests */,
@@ -342,6 +344,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				CEC2D3A025A31363009EC920 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

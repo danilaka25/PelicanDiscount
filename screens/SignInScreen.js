@@ -27,8 +27,10 @@ import Users from '../model/users';
 
 
 import auth from '@react-native-firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+ 
 
 
 //import { useNavigation } from '@react-navigation/native';
@@ -56,32 +58,15 @@ const SignInScreen = ({navigation}) => {
 
   const [code, setCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [token, setToken] = useState('');
 
   // Handle the button press
-  async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-    setConfirm(confirmation);
 
-    console.log(confirmation)
-  }
 
    
 
 
-  async function confirmCode() {
-    try {
 
-      await confirm.confirm(code);
-      console.log('Valid code.', );
-
-      navigation.navigate('MainTabScreen')
-
-      
-
-    } catch (error) {
-      console.log('Invalid code.');
-    }
-  }
 
 
 
@@ -166,16 +151,106 @@ const SignInScreen = ({navigation}) => {
     }
 
 
+  const onChangedPhone = (text)  => {
+      
+    let validPhone = '';
+    let numbers = '0123456789';
+
+    for (var i=0; i < text.length; i++) {
+
+        if(numbers.indexOf(text[i]) > -1 ) {
+           
+          validPhone = validPhone + text[i];
+
+        } else {
+
+          alert("please enter numbers only");
+
+        }
+    }
+
+    
+      setPhoneNumber(validPhone)
+   
+  
+  } 
+
+
+  async function signInWithPhoneNumber(phoneNumber) {
+    let prefix = '+38';
+
+
+    if(phoneNumber.length == 10){  
+      const confirmation = await auth().signInWithPhoneNumber(prefix + phoneNumber);
+      setConfirm(confirmation);
+      
+      console.log(confirmation._verificationId);
+
+
+
+    } else {
+      alert("not correct number");
+    }
+
+  }
+
+
+
+
+
+  async function confirmCode() {
+    try {
+
+      await confirm.confirm(code);
+      console.log('Valid code.', );
+
+        try {
+          await AsyncStorage.setItem('userToken', confirm._verificationId);
+          navigation.navigate('HomeScreen')
+        } catch(e) {
+          console.log(e);
+        }
+
+      
+
+      
+
+    } catch (error) {
+      console.log('Invalid code.');
+           
+        alert("false code");
+      
+    }
+  }
+
+
 
 
     const renderForm = () => {
         if(!confirm){
             return(
-                <>
-                    <TextInput style={styles.fieldInput} value={phoneNumber} onChangeText={text => setPhoneNumber(text)} />
+                  <Animatable.View 
+                      style={[styles.footer, {
+                          backgroundColor: colors.background
+                      }]}
+                      animation="fadeInUpBig"
+                  >
+                  <View style={styles.fieldInputRow}>
+                    <Text style={styles.fieldInputPrefix}>+38</Text>
+                    <TextInput 
+                    style={styles.fieldInput} 
+                    value={phoneNumber} 
+                    onChangeText={text => onChangedPhone(text)} 
+                    placeholder=""
+                    />
+                  </View>  
                     
                     <View style={styles.button}>
-                    <TouchableOpacity  onPress={() => signInWithPhoneNumber(phoneNumber)}>
+                    <TouchableOpacity  
+                      onPress={() => signInWithPhoneNumber(phoneNumber)}
+                      
+                       
+                    >
                         <LinearGradient
                             colors={['#cd002a', '#cd0000']}
                             style={styles.signIn}
@@ -189,11 +264,16 @@ const SignInScreen = ({navigation}) => {
                         </LinearGradient>
                     </TouchableOpacity>
                     </View>
-                </>
+                </Animatable.View>
             );
         }else{
             return(
-                <>
+                <Animatable.View 
+                      style={[styles.footer, {
+                          backgroundColor: colors.background
+                      }]}
+                      animation="fadeInUpBig"
+                >
                     <TextInput style={styles.fieldInput} value={code} onChangeText={text => setCode(text)} />                    
                     <View style={styles.button}>
                     <TouchableOpacity  onPress={() => confirmCode()} >
@@ -210,7 +290,7 @@ const SignInScreen = ({navigation}) => {
                         </LinearGradient>
                     </TouchableOpacity>
                     </View>
-                </>  
+                </Animatable.View>
             );
         }
     }
@@ -238,26 +318,14 @@ const SignInScreen = ({navigation}) => {
             resizeMode="stretch"
             />
         </View>
-        <Animatable.View 
-            style={[styles.footer, {
-                backgroundColor: colors.background
-            }]}
-            animation="fadeInUpBig"
-        >
-
-
-        {renderForm()}
 
 
 
+          {renderForm()}
 
-
-
-
-             
-            
           
-        </Animatable.View>
+          
+       
       </View>
     );
 };
@@ -273,7 +341,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
   },
   header: {
-      flex: 2,
+      flex: 4,
       justifyContent: 'center',
       alignItems: 'center'
   },
@@ -302,9 +370,23 @@ const styles = StyleSheet.create({
       alignItems: 'flex-end',
       marginTop: 30
   },
+  fieldInputRow: {
+    flexDirection: "row",
+    
+    alignItems: "center",
+   },
+  fieldInputPrefix: {
+    width: "15%",
+    fontSize: 20,
+
+  },
   fieldInput: {
     backgroundColor: '#cccccc',
-    borderRadius: 50
+    borderRadius: 50,
+    paddingLeft: 20,
+    width: "85%",
+    fontSize: 20,
+     
 
   },
   signIn: {
