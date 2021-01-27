@@ -18,7 +18,7 @@ const SplashScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor='#FF6347' barStyle="light-content"/>
+        <StatusBar backgroundColor='#000' />
         <View style={styles.header}>
             <Animatable.Image 
                 animation="bounceIn"
@@ -36,7 +36,7 @@ const SplashScreen = ({navigation}) => {
         >
             <Text style={[styles.title, {
                 color: colors.text
-            }]}>Find best food in your locality!</Text>
+            }]}>Накапливай баллы, получай скидуи!</Text>
             <Text style={styles.text}>Desc of discount app</Text>
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
@@ -44,7 +44,7 @@ const SplashScreen = ({navigation}) => {
                     colors={['#cd002a', '#cd0000']}
                     style={styles.signIn}
                 >
-                    <Text style={styles.textSign}>Get Started</Text>
+                    <Text style={styles.textSign}>Начать</Text>
                     <MaterialIcons 
                         name="navigate-next"
                         color="#fff"

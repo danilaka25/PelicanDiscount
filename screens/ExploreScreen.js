@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  ScrollView,
   Animated,
   Image,
   TouchableOpacity,
@@ -12,9 +10,8 @@ import {
   Platform,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { markers, mapDarkStyle, mapStandardStyle } from '../model/mapData';
+import { markers, mapStandardStyle } from '../model/mapData';
 import { useTheme } from '@react-navigation/native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
@@ -99,9 +96,7 @@ const ExploreScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}  >
-        <FontAwesome name="arrow-left" size={36} color="red" />         
-      </TouchableOpacity>
+      
       <MapView
         ref={_map}
         initialRegion={state.region}
@@ -175,13 +170,13 @@ const ExploreScreen = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => {}}
                   style={[styles.signIn, {
-                    borderColor: '#FF6347',
+                    borderColor: 'red',
                     borderWidth: 1
                   }]}
                 >
                   <Text style={[styles.textSign, {
-                    color: '#FF6347'
-                  }]}>Order Now</Text>
+                    color: 'red'
+                  }]}>Подробнее</Text>
                 </TouchableOpacity>
               </View>
             </View>

@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect} from 'react';
 import {
   ImageBackground,
   View,
@@ -22,44 +22,63 @@ import bgImage from "../assets/bg3.jpg";
 import Barcode from "react-native-barcode-builder";
 
 import Carousel from 'react-native-snap-carousel';
+import auth from '@react-native-firebase/auth';
+
+
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { newsData, productsData } from '../model/data';
+
+
+import database from '@react-native-firebase/database';
+
+
+
+
 
 
 const HomeScreen = ({navigation}) => {
+
+  
+
+  
+  
+
+
   const theme = useTheme();
+
+
+
+  const [testToken, setTestToken] = useState(0);
+
 
     const [activeNewsIndex, setNewsActiveIndex] = useState(0);
     const [activeProductIndex, setActiveProductIndex] = useState(0);
+    
+    
     const [news, setNews] = useState(
-         
-                  [
-                    {
-                        title:"Лапорта: Месси не гонится за деньгами, ему интересна Барселона",
-                        text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                        img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
-                    },
-                    {
-                        title:"За год Китай переправил в Украину 22 контейнерных поезда",
-                        text: "Text 2 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                        img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
-                    },
-                    {
-                        title:"Средняя зарплата: Кто из украинцев получает больше и меньше всего",
-                        text: "Text 3 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                        img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
-                    },
-                    {
-                        title:"На Волыни мужчина совершил убийство струей воды",
-                        text: "Text 4 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                        img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
-                    },
-                    {
-                        title:"Никаких танцев с бубном в Украине, – Кулеба об отношениях с Венгрией",
-                        text: "Text 5 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                        img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
-                    },
-                  ]
-        );
-
+      [
+        {
+            title:"Лапорта: Месси за деньгами, ему интересна Барселона",
+            text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник:  На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hLHHQyWn44oYWPMucb-iibknNwKFcjJYPQ&usqp=CAU",
+            price: 20
+        },
+        {
+            title:"За год Китай ",
+            text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYY6CCI-EYUBQYKldk1FqlJDYoQSvK2mjP7Q&usqp=CAU",
+            price: 25
+        },                               
+        {
+            title:"За Китай ",
+            text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3Bt3KJ560fXsS1scIx9Xw4m8S0YjwX32Iw&usqp=CAU",
+            price: 35
+        },
+       
+      ]
+    );
 
 
 
@@ -67,14 +86,22 @@ const HomeScreen = ({navigation}) => {
      
               [
                 {
-                    title:"Лапорта: Месси не гонится за деньгами, ему интересна Барселона",
+                    title:"Лапорта: Месси за деньгами, ему интересна Барселона",
                     text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник:  На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                    img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hLHHQyWn44oYWPMucb-iibknNwKFcjJYPQ&usqp=CAU",
+                    price: 20
                 },
                 {
-                    title:"За год Китай переправил в Украину 22 контейнерных поезда",
-                    text: "Text 2 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                    img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+                    title:"За год Китай ",
+                    text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYY6CCI-EYUBQYKldk1FqlJDYoQSvK2mjP7Q&usqp=CAU",
+                    price: 25
+                },                               
+                {
+                    title:"За Китай ",
+                    text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3Bt3KJ560fXsS1scIx9Xw4m8S0YjwX32Iw&usqp=CAU",
+                    price: 35
                 },
                
               ]
@@ -83,13 +110,14 @@ const HomeScreen = ({navigation}) => {
 
     const _renderNews = ({item,index}) => {
         return (
+          <TouchableOpacity
+          itemData={item}
+          onPress={()=> navigation.navigate('NewsItemDetails', {itemData: item})} > 
           <View style={{
               backgroundColor:'floralwhite',
               flexDirection: 'row',
-              borderRadius: 5,
-               
-              width: 280,
-               
+              borderRadius: 5,     
+              width: 280,  
               marginLeft: 15,
               marginRight: 15, }}>
             
@@ -99,11 +127,12 @@ const HomeScreen = ({navigation}) => {
             />
             <Text style={{fontSize: 12, width: '50%', padding: 10}}>{item.title}</Text>
           </View>
+          </TouchableOpacity>
 
         )
     }
 
-
+    // 
   const _renderProducts = ({item,index}) => {
         return (
           <TouchableOpacity
@@ -127,6 +156,87 @@ const HomeScreen = ({navigation}) => {
         )
     }
 
+
+
+    const fillNewsData = async () => {
+      var tempNews =[];
+      await database()
+      .ref('/news')
+      .once('value')
+      .then(snapshot => {
+        for (var key in snapshot.val()) {
+          tempNews.push(snapshot.val()[key]);
+        }
+        setNews(tempNews)
+      })
+      .then(
+        console.log("news", news)     
+      );
+    }
+
+    const getTokenFromStorage = async () => {
+      let userToken;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        console.log(e)
+      }
+      setTestToken(userToken) 
+      console.log("userToken", testToken)
+    };
+
+
+    useEffect(() => {
+
+      getTokenFromStorage();
+      //fillNewsData();
+ 
+      console.log("useEffect")
+     
+      }, []);
+
+
+
+    const logOut = async () => {
+    try {
+        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('phoneNumber');
+    } catch(e) {
+      // remove error
+    }       
+        
+    console.log("token deleted");
+
+    navigation.navigate('SplashScreen')
+
+
+    }
+
+
+    const consoleLog = () => {
+
+       
+      const bootstrapAsync = async () => {
+        let userToken;
+        let phoneNumber;
+    
+        try {
+          userToken = await AsyncStorage.getItem('userToken');
+          phoneNumber = await AsyncStorage.getItem('phoneNumber');
+        } catch (e) {
+        }
+
+       
+        setTestToken(userToken) 
+        console.log("userToken", testToken)
+        console.log("phoneNumber", phoneNumber)
+        
+      };
+    
+      bootstrapAsync();
+
+  }
+
   return (
    <View style={styles.container}> 
 
@@ -134,10 +244,37 @@ const HomeScreen = ({navigation}) => {
     
       <View style={styles.barcodeContainer}>
 
+
+
+
+
           
        
        <View style={styles.barcodeInner}>
-          <Barcode value="+380632373202"  format="CODE128" background="#fff" lineColor="#000"/>
+      
+      
+      <TouchableOpacity  onPress={()=>logOut()}>
+      <Text>LOGOUT</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity  onPress={()=>consoleLog()}>
+      <Text>consoleLog</Text>
+      </TouchableOpacity>
+
+
+            <View>
+              <Text>На вашем счету</Text>
+              <Text>100 </Text>
+            </View>
+
+
+            <TouchableOpacity onPress={()=>navigation.navigate('DiscountBigScreen')}>
+              <View style={{
+                transform: [{ scale: 0.7 }]
+              }}>
+                  <Barcode value="+380632373201"  format="CODE128" background="#fff" lineColor="#000"   />
+              </View> 
+            </TouchableOpacity>
        </View>
 
        <View style={styles.barcodePoints} >
@@ -146,8 +283,10 @@ const HomeScreen = ({navigation}) => {
 
       </View>  
 
-    <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 20 }}>
+    <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 20}}>
+    <Text style={styles.sliderTitle}>Новости</Text>
         <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center',}}>
+        
             <Carousel
               layout={"default"}       
               data={news}
@@ -160,6 +299,7 @@ const HomeScreen = ({navigation}) => {
 
 
     <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 20, marginLeft: '5%'}}>
+        <Text style={styles.sliderTitle}>Предложения недели</Text>
         <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
             <Carousel
               layout={"default"}
@@ -177,26 +317,26 @@ const HomeScreen = ({navigation}) => {
     </SafeAreaView>
 
 
-      <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate('EditProfileScreen')}>
+      <View style={styles.categoryContainer}>
+        <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate('CardListScreen')}>
           <View style={styles.categoryIcon}>
             <Fontisto name="info" size={35} color="#fff" />
           </View>
-           
+          <Text style={styles.categoryBtnTxt}>Hotels</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.categoryBtnBig} onPress={()=>navigation.navigate('ExploreScreen')}>
           <View style={styles.categoryIconBig}>
             <Fontisto name="map" size={45} color="red" />
           </View>
-           
+          <Text style={styles.categoryBtnTxt}>Наши заведения</Text> 
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate('ExploreScreen')}>
           <View style={styles.categoryIcon}>
             <Fontisto name="coffeescript" size={26} color="red" />
           </View>
-          
+          <Text style={styles.categoryBtnTxt}>Меню</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -221,7 +361,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: '100%',
     flex: 1,
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     
@@ -237,7 +377,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     backgroundColor: '#fff',
-    padding: 5 
+    padding: 5 ,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+     alignItems: "center",
   },
 
   barcodePoints: {
@@ -261,7 +405,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%'
+  },
 
+
+  sliderTitle: {
+    color: '#fff',
+    fontSize: 17,
+    marginBottom: 15
   },
 
 
@@ -282,7 +432,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '90%',
     alignSelf: 'center',
-    marginTop: 25,
+    marginTop: 15,
     marginBottom: 10,
   },
   categoryBtn: {
@@ -320,7 +470,7 @@ const styles = StyleSheet.create({
   categoryBtnTxt: {
     alignSelf: 'center',
     marginTop: 5,
-    color: '#de4f35',
+    color: '#fff',
   },
   cardsWrapper: {
     marginTop: 20,

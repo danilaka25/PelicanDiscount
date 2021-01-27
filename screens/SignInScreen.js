@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import { 
     View, 
     Text, 
@@ -13,30 +13,19 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 import { useTheme } from 'react-native-paper';
-
 import { AuthContext } from '../components/context';
-
-import Users from '../model/users';
 
 
 import auth from '@react-native-firebase/auth';
-
 import AsyncStorage from '@react-native-community/async-storage';
 
+
+
  
-
-
-//import { useNavigation } from '@react-navigation/native';
-
-
-//import HomeScreen from './HomeScreen';
 
 
 const SignInScreen = ({navigation}) => {
@@ -50,20 +39,30 @@ const SignInScreen = ({navigation}) => {
         isValidPassword: true,
     });
     const { colors } = useTheme();
+
+    const [testToken, setTestToken] = useState(0);
+
+
     const { signIn } = React.useContext(AuthContext);
 
 
-  // If null, no SMS has been sent
   const [confirm, setConfirm] = useState(null);
 
   const [code, setCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [token, setToken] = useState('');
 
-  // Handle the button press
 
 
    
+ 
+
+
+
+
+
+
+  
 
 
 
@@ -71,127 +70,31 @@ const SignInScreen = ({navigation}) => {
 
 
 
-
-
-    const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: true,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: false,
-                isValidUser: false
-            });
-        }
-    }
-
-    const handlePasswordChange = (val) => {
-        if( val.trim().length >= 8 ) {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: true
-            });
-        } else {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: false
-            });
-        }
-    }
-
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry
-        });
-    }
-
-    const handleValidUser = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                isValidUser: false
-            });
-        }
-    }
-
-    const loginHandle = (userName, password) => {
-
-        const foundUser = Users.filter( item => {
-            return userName == item.username && password == item.password;
-        } );
-
-        if ( data.username.length == 0 || data.password.length == 0 ) {
-            Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-                {text: 'Okay'}
-            ]);
-            return;
-        }
-
-        if ( foundUser.length == 0 ) {
-            Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-                {text: 'Okay'}
-            ]);
-            return;
-        }
-        signIn(foundUser);
-    }
 
 
   const onChangedPhone = (text)  => {
-      
     let validPhone = '';
     let numbers = '0123456789';
-
     for (var i=0; i < text.length; i++) {
-
         if(numbers.indexOf(text[i]) > -1 ) {
-           
           validPhone = validPhone + text[i];
-
         } else {
-
           alert("please enter numbers only");
-
         }
     }
-
-    
-      setPhoneNumber(validPhone)
-   
-  
+    setPhoneNumber(validPhone)
   } 
 
 
   async function signInWithPhoneNumber(phoneNumber) {
     let prefix = '+38';
-
-
     if(phoneNumber.length == 10){  
       const confirmation = await auth().signInWithPhoneNumber(prefix + phoneNumber);
       setConfirm(confirmation);
-      
       console.log(confirmation._verificationId);
-
-
-
     } else {
       alert("not correct number");
     }
-
   }
 
 
@@ -201,12 +104,17 @@ const SignInScreen = ({navigation}) => {
   async function confirmCode() {
     try {
 
-      await confirm.confirm(code);
-      console.log('Valid code.', );
+        await confirm.confirm(code);
+      
 
         try {
           await AsyncStorage.setItem('userToken', confirm._verificationId);
-          navigation.navigate('HomeScreen')
+          await AsyncStorage.setItem('phoneNumber', phoneNumber);
+
+          console.log('Valid code.', confirm._verificationId);
+
+
+          navigation.navigate('HomeScreen',  { transition: 'fade' })
         } catch(e) {
           console.log(e);
         }
@@ -216,14 +124,35 @@ const SignInScreen = ({navigation}) => {
       
 
     } catch (error) {
-      console.log('Invalid code.');
-           
-        alert("false code");
-      
+        console.log('Invalid code.');    
+        alert("false code");    
     }
   }
 
 
+  const consoleLog = () => {
+
+       
+    const bootstrapAsync = async () => {
+      let userToken;
+      let phoneNumber;
+  
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+        phoneNumber = await AsyncStorage.getItem('phoneNumber');
+      } catch (e) {
+      }
+
+     
+      setTestToken(userToken) 
+      console.log("userToken", testToken)
+      console.log("phoneNumber", phoneNumber)
+      
+    };
+  
+    bootstrapAsync();
+
+}
 
 
     const renderForm = () => {
@@ -235,6 +164,9 @@ const SignInScreen = ({navigation}) => {
                       }]}
                       animation="fadeInUpBig"
                   >
+                  <TouchableOpacity  onPress={()=>consoleLog()}>
+                  <Text>consoleLog</Text>
+                  </TouchableOpacity>
                   <View style={styles.fieldInputRow}>
                     <Text style={styles.fieldInputPrefix}>+38</Text>
                     <TextInput 
@@ -242,6 +174,7 @@ const SignInScreen = ({navigation}) => {
                     value={phoneNumber} 
                     onChangeText={text => onChangedPhone(text)} 
                     placeholder=""
+                    autoFocus={true}
                     />
                   </View>  
                     
@@ -274,7 +207,15 @@ const SignInScreen = ({navigation}) => {
                       }]}
                       animation="fadeInUpBig"
                 >
-                    <TextInput style={styles.fieldInput} value={code} onChangeText={text => setCode(text)} />                    
+                    <TouchableOpacity  onPress={()=>consoleLog()}>
+      <Text>consoleLog</Text>
+      </TouchableOpacity>
+                    <TextInput 
+                      style={styles.fieldInput} 
+                      value={code} 
+                      onChangeText={text => setCode(text)} 
+                      autoFocus={true}
+                      />                    
                     <View style={styles.button}>
                     <TouchableOpacity  onPress={() => confirmCode()} >
                         <LinearGradient
@@ -308,7 +249,9 @@ const SignInScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-          <StatusBar backgroundColor='#FF6347' barStyle="light-content"/>
+
+
+        <StatusBar backgroundColor='#FF6347' barStyle="light-content"/>
         <View style={styles.header}>
             <Animatable.Image 
                 animation="bounceIn"
@@ -321,7 +264,67 @@ const SignInScreen = ({navigation}) => {
 
 
 
-          {renderForm()}
+        <Animatable.View 
+                      style={[styles.footer, {
+                          backgroundColor: colors.background
+                      }]}
+                      animation="fadeInUpBig"
+                  >
+                    <Text style={styles.title}>Введите свой номер телефона, мы пришлем вам смс</Text>
+                  
+
+                    <View style={styles.fieldInputRow}>
+
+                    <TextInput 
+                      style={styles.fieldInput} 
+                      value={code} 
+                      onChangeText={text => setCode(text)} 
+                      autoFocus={true}
+                      />  
+
+                    <TouchableOpacity  onPress={() => confirmCode()} >
+                        <LinearGradient
+                            colors={['#cd002a', '#cd0000']}
+                            style={styles.signIn}
+                        >
+                            <Text style={styles.textSign}>Enter CODE</Text>
+                            <MaterialIcons 
+                                name="navigate-next"
+                                color="#fff"
+                                size={20}
+                            />
+                        </LinearGradient>
+                    </TouchableOpacity>   
+
+                    </View> 
+                    
+                    <View style={styles.button}>
+                    <View style={styles.fieldInputRow}>
+                      <Text style={styles.fieldInputPrefix}>+38</Text>
+                      <TextInput 
+                      style={styles.fieldInput} 
+                      value={phoneNumber} 
+                      onChangeText={text => onChangedPhone(text)} 
+                      placeholder=""
+                      autoFocus={true}
+                      />
+                      <TouchableOpacity onPress={() => signInWithPhoneNumber(phoneNumber)} >
+                          <LinearGradient
+                              colors={['#cd002a', '#cd0000']}
+                              style={styles.signIn}
+                          >
+                          <Text style={styles.textSign}>Отправить</Text>
+                          <MaterialIcons 
+                              name="navigate-next"
+                              color="#fff"
+                              size={20}
+                          />
+                          </LinearGradient>
+                      </TouchableOpacity>
+                    </View>  
+                      
+                </View>
+                </Animatable.View>
 
           
           
@@ -341,10 +344,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
   },
   header: {
-      flex: 4,
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center'
   },
+
   footer: {
       flex: 1,
       backgroundColor: '#fff',
@@ -359,7 +363,7 @@ const styles = StyleSheet.create({
   },
   title: {
       color: '#05375a',
-      fontSize: 30,
+      fontSize: 23,
       fontWeight: 'bold'
   },
   text: {
@@ -376,7 +380,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
    },
   fieldInputPrefix: {
-    width: "15%",
+    flex: 1,
     fontSize: 20,
 
   },
@@ -384,13 +388,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#cccccc',
     borderRadius: 50,
     paddingLeft: 20,
-    width: "85%",
+    flex: 4,
     fontSize: 20,
      
 
   },
   signIn: {
-      width: 150,
+      flex: 1,
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',

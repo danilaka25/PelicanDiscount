@@ -1,115 +1,50 @@
-const Images = [
-  {image: require('../assets/banners/food-banner1.jpg')},
-  {image: require('../assets/banners/food-banner2.jpg')},
-  {image: require('../assets/banners/food-banner3.jpg')},
-  {image: require('../assets/banners/food-banner4.jpg')},
-  {image: require('../assets/banners/food-banner5.jpg')},
+export const newsData =  [
+  {
+      title:"Лапорта: Месси<strong> не гонится</strong> за деньгами, ему интересна Барселона",
+      text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+  },
+  {
+      title:"За год Китай переправил в Украину 22 контейнерных поезда",
+      text: "Text 2 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://popel-studio.com/blog/image/440/179.png"
+  },
+  {
+      title:"Средняя зарплата: Кто из украинцев получает больше и меньше всего",
+      text: "Text 3 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+  },
+  {
+      title:"На Волыни мужчина совершил убийство струей воды",
+      text: "Text 4 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+  },
+  {
+      title:"Никаких танцев с бубном в Украине, – Кулеба об отношениях с Венгрией",
+      text: "Text 5 На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://www.bigmir.net/i/27/04/78/4/2704784/23594aad16fca9e4480181a0e766a063-quality_55Xresize_crop_1Xallow_enlarge_0Xw_300Xh_230.jpg"
+  },
 ];
 
-export const data = [
+
+export const productsData = [
   {
-    id: '1',
-    coordinate: {
-      latitude: 22.6293867,
-      longitude: 88.4354486,
-    },
-    title: 'Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[0].image,
-    rating: 4,
-    reviews: 99,
-    categories: ['Restaurant', 'Hotel', 'Dineout'],
+      title:"Лапорта: Месси за деньгами, ему интересна Барселона",
+      text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник:  На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hLHHQyWn44oYWPMucb-iibknNwKFcjJYPQ&usqp=CAU",
+      price: 20
   },
   {
-    id: '2',
-    coordinate: {
-      latitude: 22.6345648,
-      longitude: 88.4377279,
-    },
-    title: 'Second Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[1].image,
-    rating: 5,
-    reviews: 102,
-    categories: ['Restaurant', 'Fastfood Center', 'Snacks Corner'],
-  },
+      title:"За год Китай ",
+      text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYY6CCI-EYUBQYKldk1FqlJDYoQSvK2mjP7Q&usqp=CAU",
+      price: 25
+  },                               
   {
-    id: '3',
-    coordinate: {
-      latitude: 22.6281662,
-      longitude: 88.4410113,
-    },
-    title: 'Third Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[2].image,
-    rating: 3,
-    reviews: 220,
-    categories: ['Restaurant', 'Hotel', 'Dineout'],
+      title:"За Китай ",
+      text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3Bt3KJ560fXsS1scIx9Xw4m8S0YjwX32Iw&usqp=CAU",
+      price: 35
   },
-  {
-    id: '4',
-    coordinate: {
-      latitude: 22.6341137,
-      longitude: 88.4497463,
-    },
-    title: 'Fourth Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[3].image,
-    rating: 4,
-    reviews: 48,
-    categories: ['Restaurant', 'Fastfood Center', 'Snacks Corner'],
-  },
-  {
-    id: '5',
-    coordinate: {
-      latitude: 22.6292757,
-      longitude: 88.444781,
-    },
-    title: 'Fifth Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[4].image,
-    rating: 4,
-    reviews: 178,
-    categories: ['Restaurant', 'Hotel', 'Dineout'],
-  },
-  {
-    id: '6',
-    coordinate: {
-      latitude: 22.6293867,
-      longitude: 88.4354486,
-    },
-    title: 'Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[0].image,
-    rating: 4,
-    reviews: 99,
-    categories: ['Restaurant', 'Hotel', 'Dineout'],
-  },
-  {
-    id: '7',
-    coordinate: {
-      latitude: 22.6345648,
-      longitude: 88.4377279,
-    },
-    title: 'Second Amazing Food Place',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque est metus, gravida vel ex volutpat, posuere euismod tortor. Pellentesque tincidunt, mi ac varius blandit, quam orci dignissim risus, vitae rutrum orci urna ut neque.
-      
-      Pellentesque condimentum ut libero id blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.`,
-    image: Images[1].image,
-    rating: 5,
-    reviews: 102,
-    categories: ['Restaurant', 'Fastfood Center', 'Snacks Corner'],
-  },
+ 
 ];
