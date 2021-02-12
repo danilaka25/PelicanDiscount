@@ -1,27 +1,22 @@
 import React from 'react';
-
-import { StyleSheet, Image } from 'react-native';
-
-
 import { createStackNavigator } from '@react-navigation/stack';
-
-
-import CardListScreen from './CardListScreen';
-import CardItemDetails from './CardItemDetails';
-import EditProfileScreen from './EditProfileScreen';
-
-
-
 import HomeScreen from './HomeScreen';
 import ExploreScreen from './ExploreScreen';
 import ProductItemDetails from './ProductItemDetails';
+import NewsItemDetails from './NewsItemDetails';
 import SplashScreen from './SplashScreen';
 import SignInScreen from './SignInScreen';
 
 
+import SettingsScreen from './SettingsScreen';
+
 
 
 import headerBg from "../assets/header_bg.jpg";
+
+
+
+import BACK from '../assets/svg/back.svg';
 
 
 const RootStack = createStackNavigator();
@@ -37,7 +32,6 @@ const RootStackScreen = ({ navigation }) => (
             }}
         />
 
-
         <RootStack.Screen
             name="SplashScreen"
             component={SplashScreen}
@@ -46,13 +40,13 @@ const RootStackScreen = ({ navigation }) => (
             }}
         />
 
-        <RootStack.Screen 
-            name="SignInScreen" 
+        <RootStack.Screen
+            name="SignInScreen"
             component={SignInScreen}
             options={{
-                headerShown:false
+                headerShown: false
             }}
-        />
+        /> 
 
         <RootStack.Screen
             name="DiscountBigScreen"
@@ -61,8 +55,6 @@ const RootStackScreen = ({ navigation }) => (
                 headerShown: false
             }}
         />
-
-    
 
         <RootStack.Screen
             name="ExploreScreen"
@@ -84,9 +76,8 @@ const RootStackScreen = ({ navigation }) => (
                 //       source={headerBg}
                 //     />
                 // ),
-            }} 
+            }}
         />
-
 
         <RootStack.Screen
             name="ProductItemDetails"
@@ -105,8 +96,44 @@ const RootStackScreen = ({ navigation }) => (
             }}
         />
 
-       
-        
+
+        <RootStack.Screen
+                    name="NewsItemDetails"
+                    component={NewsItemDetails}
+                    options={{
+                        headerTransparent: true,
+                        // headerBackground: () => (
+                        //   <Image
+
+                        //       source={headerBg}
+                        //     />
+                        // ),
+                        //  headerStyle: {
+                        //     height: 74, 
+                        //   }
+                    }}
+                />
+
+
+        <RootStack.Screen
+            name="SettingsScreen"
+            component={SettingsScreen}
+            options={{
+                headerTransparent: true,
+                // headerBackground: () => (
+                //   <Image
+
+                //       source={headerBg}
+                //     />
+                // ),
+                //  headerStyle: {
+                //     height: 74, 
+                //   }
+                
+            }}
+        />
+
+
 
 
 

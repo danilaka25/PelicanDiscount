@@ -7,7 +7,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Button } from 'react-native';
 import { 
   NavigationContainer, 
   DefaultTheme as NavigationDefaultTheme,
@@ -25,7 +25,7 @@ import { DrawerContent } from './screens/DrawerContent';
 
 import HomeScreen from './screens/HomeScreen';
 import ExploreScreen from './screens/ExploreScreen';
-import CardListScreen from './screens/CardListScreen';
+
 import CardItemDetails from './screens/CardItemDetails';
 
 import ProductItemDetails from './screens/ProductItemDetails';
@@ -43,6 +43,11 @@ import SignInScreen from './screens/SignInScreen';
 import DiscountBigScreen from './screens/DiscountBigScreen';
 
 
+import SettingsScreen from './screens/SettingsScreen';
+
+
+
+
 
 import { AuthContext } from './components/context';
 
@@ -56,8 +61,7 @@ const RootStack = createStackNavigator();
 
 const App = ({navigation}) => {
 
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-
+ 
  
 
   const CustomDefaultTheme = {
@@ -82,7 +86,7 @@ const App = ({navigation}) => {
     }
   }
 
-  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
+  const theme = CustomDefaultTheme;
 
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -174,7 +178,7 @@ const App = ({navigation}) => {
   }
 
 
-  function Home() {
+  function Home({navigation}) {
     return (
       <RootStack.Navigator>
         <RootStack.Screen
@@ -183,6 +187,7 @@ const App = ({navigation}) => {
             options={{
                 headerShown: false
             }}
+            hometext="123"
         />
 
 
@@ -208,16 +213,16 @@ const App = ({navigation}) => {
             name="ExploreScreen"
             component={ExploreScreen}
             options={{
-                //headerShown:false,  
-                title: 'Заведения на карте',
-                headerStyle: {
-                    backgroundColor: 'red',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                // headerTransparent: true,
+                headerShown:false,  
+                // title: 'Заведения на карте',
+                // headerStyle: {
+                //     backgroundColor: 'red',
+                // },
+                // headerTintColor: '#fff',
+                // headerTitleStyle: {
+                //     fontWeight: 'bold',
+                // },
+                //headerTransparent: true,
                 // headerBackground: () => (
                 //   <Image
                 //       style={StyleSheet.absoluteFill}
@@ -242,7 +247,7 @@ const App = ({navigation}) => {
             name="ProductItemDetails"
             component={ProductItemDetails}
             options={{
-                headerTransparent: true,
+                headerShown:false,  
                 // headerBackground: () => (
                 //   <Image
 
@@ -258,7 +263,7 @@ const App = ({navigation}) => {
             name="NewsItemDetails"
             component={NewsItemDetails}
             options={{
-                 
+              headerShown:false,  
                 // headerBackground: () => (
                 //   <Image
 
@@ -269,6 +274,13 @@ const App = ({navigation}) => {
                 //     height: 74, 
                 //   }
             }}
+        />
+
+
+        <RootStack.Screen
+            name="SettingsScreen"
+            component={SettingsScreen}
+            options={{headerShown: false}}
         />
 
 
@@ -327,6 +339,9 @@ const App = ({navigation}) => {
                 headerShown:false
             }}
         /> 
+
+
+      
 
 
 

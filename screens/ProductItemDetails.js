@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -9,72 +9,98 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
-  SafeAreaView, 
-  ScrollView
-} from 'react-native';
- 
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as Animatable from "react-native-animatable";
 
-import HTMLView from 'react-native-htmlview';
+import HTMLView from "react-native-htmlview";
 
+import Header from "../components/Header";
 
+import bgImage from "../assets/pattern2.jpg";
 
-
-import bgImage from "../assets/bg4.jpg";
-import imageAfter from "../assets/imageAfter.png";
-
-import imageBefore from "../assets/imageBefore.png";
-
-
-
-
-
-  
-
-const ProductItemDetails = ({route}) => {
+const ProductItemDetails = ({ route, navigation }) => {
   const itemData = route.params.itemData;
- 
+
+  let priceItems = itemData.variations.length;
+
+  const renderPrices = () => {
+    if (priceItems == 1) {
+      return (
+        <View style={styles.priceRow}>
+          <View style={styles.price_1}>
+            <Text>{itemData.variations[0].price}</Text>
+            <Text>{itemData.variations[0].productSize}</Text>
+          </View>
+        </View>
+      );
+    } else if (priceItems == 2) {
+      return (
+        <View style={styles.priceRow}>
+          <View style={styles.price_1}>
+            <Text>{itemData.variations[0].price} </Text>
+            <Text>{itemData.variations[0].productSize}</Text>
+          </View>
+          <View style={styles.price_2}>
+            <Text>{itemData.variations[1].price} </Text>
+            <Text>{itemData.variations[1].productSize}</Text>
+          </View>
+        </View>
+      );
+    } else if (priceItems == 3) {
+      return (
+        <View style={styles.priceRow}>
+          
+          <View style={styles.price_1}>
+            <Text>{itemData.variations[0].price}</Text>
+            <Text>{itemData.variations[0].productSize}</Text>
+          </View>
+
+          <View style={styles.price_2}>
+            <Text>{itemData.variations[1].price}</Text>
+            <Text>{itemData.variations[1].productSize}</Text>
+          </View>
+
+          <View style={styles.price_3}>
+            <Text>{itemData.variations[2].price}</Text>
+            <Text>{itemData.variations[2].productSize}</Text>
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text>error</Text>
+        </View>
+      );
+    }
+  };
+
   return (
-<ImageBackground source={bgImage} resizeMode='cover' style={styles.bgImage}> 
-  
-   
-   
- 
+    <ImageBackground
+      source={bgImage}
+      resizeMode="repeat"
+      style={styles.bgImage}
+    >
+      <SafeAreaView style={styles.scrollArea}>
+      <ScrollView style={styles.scrollView}>
+      <Header navigation={navigation} showBack={true} showReload={false} />
 
 
-  <SafeAreaView style={styles.scrollArea}>
-  <ScrollView style={styles.scrollView}>
+          <View style={styles.productImageBg}>
+            <Image source={{ uri: itemData.img }} style={styles.productImage} />
+          </View>
 
-
-      <ImageBackground source={imageBefore} style={styles.imageBefore}>
-        <Text style={styles.price}>{itemData.price} грн</Text>     
-      </ImageBackground>
-      <View style={styles.productImageBg}> 
-          <Image source={{uri:itemData.img}} style={styles.productImage}/>
-             
-      </View>
-      <ImageBackground source={imageAfter} style={styles.imageAfter}></ImageBackground>
-      
-
-
-     <View style={styles.section}> 
-       
-       <HTMLView
-          value={itemData.desc}
-          stylesheet={styles.title}
-        />
-       <Text style={styles.sectionContent}>{itemData.title}</Text>     
-    </View>
-
-
- 
-
-    
-    </ScrollView>
-    </SafeAreaView>
-    
+          <View style={styles.section}>
+            {/* <Text>{itemData.variations}</Text> */}
+            {renderPrices()}
+            <HTMLView value={itemData.text} stylesheet={styles.title} />
+            <Text style={styles.sectionContent}>{itemData.title}</Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -82,101 +108,100 @@ const ProductItemDetails = ({route}) => {
 export default ProductItemDetails;
 
 const styles = StyleSheet.create({
+  priceRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#fff'
+
+  },
+  itemPrice: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: 70,
+  },
+  price_1: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: 70,
+    backgroundColor: "#ccc",
+  },
+  price_2: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: 70,
+    backgroundColor: "red",
+  },
+  price_3: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: 70,
+    backgroundColor: "green",
+  },
   bgImage: {
     paddingBottom: 20,
-    alignItems: 'center' 
+    alignItems: "center",
   },
   scrollArea: {
-    width: '100%',
+    width: "100%",
   },
-
   scrollView: {
-    width: '100%',
+    width: "100%",
   },
   price: {
-     color: '#000000',
-    width: 60,
-    height: 30,
+    color: "#000000",
     backgroundColor: "#ffffff",
     borderWidth: 3,
-
-    alignSelf: 'center',
-    textAlign: 'center',
-    lineHeight: 30
-
+    alignSelf: "center",
+    textAlign: "center",
+    lineHeight: 30,
   },
   productImageBg: {
-    backgroundColor: '#ffffff',
-     
-
-
-  },
-
-  imageBefore: {
-    marginTop: 50,
-    height: 60, 
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center"
-  },
-  imageAfter: {
-    height: 60, 
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center"
+    marginTop: 90,
   },
   productImage: {
-    width:  260, 
-    height: 260, 
+     
+    height: 260,
     borderRadius: 5,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 10,
-    marginBottom: 10
-
+    marginBottom: 10,
   },
-  container: {
-     
-     
-     
-  },
+  container: {},
   section: {
     flex: 1,
-    width: '90%',
-    alignItems: 'center',
+    width: "90%",
+    alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-     
+    borderBottomColor: "#cccccc",
     padding: 20,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginBottom: 50,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: -20,
-
   },
   image: {
     height: 200,
-    width: Dimensions.get('window').width,
-    alignSelf: 'stretch',
-    resizeMode: 'cover',
+    width: Dimensions.get("window").width,
+    alignSelf: "stretch",
+    resizeMode: "cover",
   },
   title: {
     fontSize: 20,
   },
   name: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-
-
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   sectionContent: {
     fontSize: 18,
-    color: '#ffffff'
-     
+    color: "#ffffff",
   },
-    
- 
 });

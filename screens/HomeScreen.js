@@ -1,4 +1,4 @@
-import React , { useState , useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   View,
@@ -7,512 +7,517 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
-  Dimensions,
-  SafeAreaView
-} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+} from "react-native";
 
-import Swiper from 'react-native-swiper';
-import Fontisto from 'react-native-vector-icons/Fontisto';
- 
-import bgImage from "../assets/bg3.jpg";
-
- 
 import Barcode from "react-native-barcode-builder";
+import Carousel from "react-native-snap-carousel";
+import AsyncStorage from "@react-native-community/async-storage";
+import Header from "../components/Header";
+import database from "@react-native-firebase/database";
+import { SvgUri } from "react-native-svg";
 
-import Carousel from 'react-native-snap-carousel';
-import auth from '@react-native-firebase/auth';
+import bgImage from "../assets/pattern2.jpg";
+import LOGO from "../assets/svg/logo.svg";
+import STAR from "../assets/svg/star.svg";
+import INFO from "../assets/svg/star.svg";
+import SETTINGS from "../assets/svg/settings.svg";
+import MAP from "../assets/svg/map.svg";
+import MENU from "../assets/svg/menu.svg";
+import CUP from "../assets/svg/coffee-cup.svg";
+import NEWS from "../assets/svg/newspaper.svg";
+import CUP_Active from "../assets/svg/coffee-cup-active.svg";
+import NEWS_Active from "../assets/svg/newspaper-active.svg";
 
-
-import AsyncStorage from '@react-native-community/async-storage';
-
-import { newsData, productsData } from '../model/data';
-
-
-import database from '@react-native-firebase/database';
-
-
-
-
-
-
-const HomeScreen = ({navigation}) => {
-
-  
-
-  
-  
-
-
-  const theme = useTheme();
-
-
-
+const HomeScreen = ({ navigation }) => {
   const [testToken, setTestToken] = useState(0);
+  const [activeNewsIndex, setNewsActiveIndex] = useState(0);
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const [news, setNews] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [places, setPlaces] = useState([]);
+  const [initalRegion, setInitalRegion] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
 
-
-    const [activeNewsIndex, setNewsActiveIndex] = useState(0);
-    const [activeProductIndex, setActiveProductIndex] = useState(0);
-    
-    
-    const [news, setNews] = useState(
-      [
-        {
-            title:"Лапорта: Месси за деньгами, ему интересна Барселона",
-            text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник:  На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hLHHQyWn44oYWPMucb-iibknNwKFcjJYPQ&usqp=CAU",
-            price: 20
-        },
-        {
-            title:"За год Китай ",
-            text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYY6CCI-EYUBQYKldk1FqlJDYoQSvK2mjP7Q&usqp=CAU",
-            price: 25
-        },                               
-        {
-            title:"За Китай ",
-            text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3Bt3KJ560fXsS1scIx9Xw4m8S0YjwX32Iw&usqp=CAU",
-            price: 35
-        },
-       
-      ]
+  const _renderNews = ({ item }) => {
+    return (
+      <TouchableOpacity
+        itemData={item}
+        onPress={() =>
+          navigation.navigate("NewsItemDetails", { itemData: item }, navigation)
+        }
+      >
+        <View style={styles.NewsItemBlock}>
+          <Image style={styles.NewsItemImage} source={{ uri: item.img }} />
+          <Text style={styles.NewsItemTitle}>{item.title}</Text>
+          <Text style={styles.NewsItemDesc}>{item.desc}</Text>
+        </View>
+      </TouchableOpacity>
     );
+  };
 
-
-
-    const [products, setProducts] = useState(
-     
-              [
-                {
-                    title:"Лапорта: Месси за деньгами, ему интересна Барселона",
-                    text: "На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник:  На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная На своей странице в Инстаграм Комаров опубликовал селфи, где возлюбленная нежно целует его в щеку. На свежем снимке ведущий появился в зимней куртке красного цвета и полосатой шапке, а Александра позировала на камеру в бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hLHHQyWn44oYWPMucb-iibknNwKFcjJYPQ&usqp=CAU",
-                    price: 20
-                },
-                {
-                    title:"За год Китай ",
-                    text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYY6CCI-EYUBQYKldk1FqlJDYoQSvK2mjP7Q&usqp=CAU",
-                    price: 25
-                },                               
-                {
-                    title:"За Китай ",
-                    text: "бежевой шапке, сером свитере и темно-сиреневой куртке. Источник: ",
-                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB3Bt3KJ560fXsS1scIx9Xw4m8S0YjwX32Iw&usqp=CAU",
-                    price: 35
-                },
-               
-              ]
-    );
-
-
-    const _renderNews = ({item,index}) => {
-        return (
-          <TouchableOpacity
-          itemData={item}
-          onPress={()=> navigation.navigate('NewsItemDetails', {itemData: item})} > 
-          <View style={{
-              backgroundColor:'floralwhite',
-              flexDirection: 'row',
-              borderRadius: 5,     
-              width: 280,  
-              marginLeft: 15,
-              marginRight: 15, }}>
-            
-            <Image
-              style={{width: 138, height: 138, borderRadius: 5,}}
-              source={{uri: item.img}}
-            />
-            <Text style={{fontSize: 12, width: '50%', padding: 10}}>{item.title}</Text>
+  const _renderProducts = ({ item }) => {
+    return (
+      <TouchableOpacity
+        itemData={item}
+        onPress={() =>
+          navigation.navigate(
+            "ProductItemDetails",
+            { itemData: item },
+            navigation
+          )
+        }
+      >
+        <View style={styles.ProductItemBlock}>
+          <View style={{ height: 20 }}></View>
+          <View style={styles.ProductItemWrapper}>
+            <Image style={styles.ProductItemImage} source={{ uri: item.img }} />
+            <Text style={styles.ProductItemTitle}>{item.title}</Text>
+            <Text style={styles.ProductItemPrice}>
+              {item.variations[0].price} ₴
+            </Text>
           </View>
-          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
-        )
-    }
-
-    // 
-  const _renderProducts = ({item,index}) => {
-        return (
-          <TouchableOpacity
-            itemData={item}
-            onPress={()=> navigation.navigate('ProductItemDetails', {itemData: item})} > 
-            <View style={{
-                backgroundColor:'floralwhite',
-                borderRadius: 5,
-                 
-                width: 120,
-                padding: 5,
-                marginRight: 15,
-                  
-              }}>
-              <Image
-                style={{width: 110, height: 110, borderRadius: 5}}
-                source={{uri: item.img}}
-              />
-            </View>
-          </TouchableOpacity>
-        )
-    }
-
-
-
-    const fillNewsData = async () => {
-      var tempNews =[];
-      await database()
-      .ref('/news')
-      .once('value')
-      .then(snapshot => {
-        for (var key in snapshot.val()) {
-          tempNews.push(snapshot.val()[key]);
+  const getAllDataFromFirebaseDb = async () => {
+    console.log('isLoading')
+    let tempNews = [];
+    let tempProducts = [];
+    let tempPlaces = [];
+    let tempInitalRegion = [];
+    await database()
+      .ref("/")
+      .once("value")
+      .then((snapshot) => {
+        for (var key in snapshot.val().news) {
+          tempNews.push(snapshot.val().news[key]);
         }
-        setNews(tempNews)
-      })
-      .then(
-        console.log("news", news)     
+
+        for (var key in snapshot.val().products) {
+          tempProducts.push(snapshot.val().products[key]);
+        }
+
+        for (var key in snapshot.val().places) {
+          tempPlaces.push(snapshot.val().places[key]);
+          console.log(snapshot.val().places[key]);
+        }
+
+        for (var key in snapshot.val().initalRegion) {
+          tempInitalRegion.push(snapshot.val().initalRegion[key]);
+        }
+
+        setNews(tempNews);
+        setProducts(tempProducts);
+        setPlaces(tempPlaces);
+        setInitalRegion(tempInitalRegion);
+      }).then(
+        console.log('loaded')
       );
-    }
+  };
 
-    const getTokenFromStorage = async () => {
-      let userToken;
-      try {
-        userToken = await AsyncStorage.getItem('userToken');
-      } catch (e) {
-        console.log(e)
-      }
-      setTestToken(userToken) 
-      console.log("userToken", testToken)
-    };
-
-
-    useEffect(() => {
-
-      getTokenFromStorage();
-      //fillNewsData();
- 
-      console.log("useEffect")
-     
-      }, []);
-
-
-
-    const logOut = async () => {
+  const getTokenFromStorage = async () => {
+    let userToken;
     try {
-        await AsyncStorage.removeItem('userToken');
-        await AsyncStorage.removeItem('phoneNumber');
-    } catch(e) {
-      // remove error
-    }       
-        
-    console.log("token deleted");
-
-    navigation.navigate('SplashScreen')
-
-
+      userToken = await AsyncStorage.getItem("userToken");
+    } catch (e) {
+      //console.log(e)
     }
+    setTestToken(userToken);
+  };
 
+  useEffect(() => {
+    getTokenFromStorage();
+    getAllDataFromFirebaseDb();
+    console.log("useEffect");
+  }, []);
 
-    const consoleLog = () => {
-
-       
-      const bootstrapAsync = async () => {
-        let userToken;
-        let phoneNumber;
-    
-        try {
-          userToken = await AsyncStorage.getItem('userToken');
-          phoneNumber = await AsyncStorage.getItem('phoneNumber');
-        } catch (e) {
-        }
-
-       
-        setTestToken(userToken) 
-        console.log("userToken", testToken)
-        console.log("phoneNumber", phoneNumber)
-        
-      };
-    
-      bootstrapAsync();
-
-  }
+  const changeTab = (n) => {
+    setActiveTab(n);
+  };
 
   return (
-   <View style={styles.container}> 
-
-    <ImageBackground source={bgImage} resizeMode='cover' style={styles.bgImage}> 
-    
-      <View style={styles.barcodeContainer}>
-
-
-
-
-
-          
-       
-       <View style={styles.barcodeInner}>
-      
-      
-      <TouchableOpacity  onPress={()=>logOut()}>
-      <Text>LOGOUT</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity  onPress={()=>consoleLog()}>
-      <Text>consoleLog</Text>
-      </TouchableOpacity>
-
-
-            <View>
-              <Text>На вашем счету</Text>
-              <Text>100 </Text>
-            </View>
-
-
-            <TouchableOpacity onPress={()=>navigation.navigate('DiscountBigScreen')}>
-              <View style={{
-                transform: [{ scale: 0.7 }]
-              }}>
-                  <Barcode value="+380632373201"  format="CODE128" background="#fff" lineColor="#000"   />
-              </View> 
-            </TouchableOpacity>
-       </View>
-
-       <View style={styles.barcodePoints} >
-        <Text>32</Text>
-       </View> 
-
-      </View>  
-
-    <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 20}}>
-    <Text style={styles.sliderTitle}>Новости</Text>
-        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center',}}>
-        
-            <Carousel
-              layout={"default"}       
-              data={news}
-              sliderWidth={300}
-              itemWidth={290}
-              renderItem={_renderNews}
-              onSnapToItem = { index => setNewsActiveIndex(index) } />
+    <View style={styles.container}>
+      <StatusBar hidden />
+      <ImageBackground
+        source={bgImage}
+        resizeMode="repeat"
+        style={styles.bgImage}
+      >
+        <View style={styles.logoContainer}>
+          <Header navigation={navigation} showBack={false} showReload={false} />
         </View>
-    </SafeAreaView>
+        <View style={styles.barcodeContainer}>
+          <View style={styles.barcodeInner}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("DiscountBigScreen")}
+            >
+              <View>
+                <Barcode
+                  value="+380632373201"
+                  format="CODE128"
+                  background="#fff"
+                  lineColor="#000"
+                />
+              </View>
+            </TouchableOpacity>
+            <View style={styles.barcodeDescRow}>
+              <Text style={styles.barcodeDesc}>На Вашому рахунку:</Text>
+              <View style={styles.barcodePointsContainer}>
+                <STAR width={27} height={27} />
+                <Text style={styles.barcodePointsValue}>15</Text>
+                <Text style={styles.barcodePointsText}>Балів</Text>
+              </View>
+            </View>
+          </View>
+        </View>
 
+        <View style={styles.toggleRow}>
+          <TouchableOpacity //style={styles.toggleBtn}
+            style={[
+              styles.toggleBtn,
+              { borderColor: activeTab == 0 ? "#6AAE36" : "transparent" },
+            ]}
+            onPress={() => changeTab(0)}
+          >
+            {activeTab == 1 ? <CUP width="40" height="40" /> : <CUP_Active />}
+            <Text
+              style={[
+                styles.toggleBtnTxt,
+                { color: activeTab == 0 ? "#6AAE36" : "#000" },
+              ]}
+            >
+              Меню
+            </Text>
+          </TouchableOpacity>
 
-    <SafeAreaView style={{flex: 1, backgroundColor:'transparent', paddingTop: 20, marginLeft: '5%'}}>
-        <Text style={styles.sliderTitle}>Предложения недели</Text>
-        <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+          <TouchableOpacity
+            style={[
+              styles.toggleBtn,
+              { borderColor: activeTab == 1 ? "#6AAE36" : "transparent" },
+            ]}
+            onPress={() => changeTab(1)}
+          >
+            {activeTab == 1 ? <NEWS_Active /> : <NEWS />}
+            <Text
+              style={[
+                styles.toggleBtnTxt,
+                { color: activeTab == 0 ? "#6AAE36" : "#000" },
+              ]}
+            >
+              Новости
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {activeTab ? (
+          <View style={styles.SliderWrapper}>
             <Carousel
               layout={"default"}
-              loop={true} 
+              loop={true}
               enableSnap={true}
-              activeSlideAlignment={'start'}
+              activeSlideAlignment={"start"}
               inactiveSlideScale={1}
-              inactiveSlideOpacity={1}           
+              inactiveSlideOpacity={1}
+              data={news}
+              sliderWidth={200}
+              itemWidth={220}
+              renderItem={_renderNews}
+              onSnapToItem={(index) => setNewsActiveIndex(index)}
+            />
+          </View>
+        ) : (
+          <View style={styles.SliderWrapper}>
+            <Carousel
+              layout={"default"}
+              loop={true}
+              enableSnap={true}
+              activeSlideAlignment={"start"}
+              inactiveSlideScale={1}
+              inactiveSlideOpacity={1}
               data={products}
-              sliderWidth={120}
-              itemWidth={130}
+              sliderWidth={150}
+              itemWidth={160}
               renderItem={_renderProducts}
-              onSnapToItem = { index => setActiveProductIndex(index) } />
+              onSnapToItem={(index) => setActiveProductIndex(index)}
+            />
+          </View>
+        )}
+
+        <View style={styles.categoryContainer}>
+          <TouchableOpacity
+            style={styles.categoryBtn}
+            onPress={() => navigation.navigate("SettingsScreen")}
+          >
+            <View style={styles.categoryIcon}>
+              <SETTINGS width={26} height={26} />
+            </View>
+            <Text style={styles.categoryBtnTxt}>Налаштування</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.categoryBtn}
+            onPress={() => navigation.navigate("ExploreScreen")}
+          >
+            <View style={styles.categoryIcon}>
+              <MAP width={26} height={26} />
+            </View>
+            <Text style={styles.categoryBtnTxt}>Заклади</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.categoryBtn}
+            onPress={() =>
+              navigation.navigate(
+                "ExploreScreen",
+                { places, initalRegion },
+                navigation
+              )
+            }
+          >
+            <View style={styles.categoryIcon}>
+              <MENU width={26} height={26} />
+            </View>
+            <Text style={styles.categoryBtnTxt}>Меню</Text>
+          </TouchableOpacity>
         </View>
-    </SafeAreaView>
-
-
-      <View style={styles.categoryContainer}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate('CardListScreen')}>
-          <View style={styles.categoryIcon}>
-            <Fontisto name="info" size={35} color="#fff" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Hotels</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.categoryBtnBig} onPress={()=>navigation.navigate('ExploreScreen')}>
-          <View style={styles.categoryIconBig}>
-            <Fontisto name="map" size={45} color="red" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Наши заведения</Text> 
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.categoryBtn} onPress={()=>navigation.navigate('ExploreScreen')}>
-          <View style={styles.categoryIcon}>
-            <Fontisto name="coffeescript" size={26} color="red" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Меню</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-     </View>
+      </ImageBackground>
+    </View>
   );
 };
 
 export default HomeScreen;
 
- 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center", 
-    justifyContent: "center",
-     
-    backgroundColor: '#ffffff' 
-  },
-
-  barcodeContainer: {
-    marginTop: 30,
-    width: '100%',
-    flex: 1,
-    // flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    
-  },
-
-  barcodeInner: {
-    width: '90%', 
-    // borderBottomColor: 'red',
-    // borderBottomWidth: 2,
-    // borderTopColor: 'red',
-    // borderTopWidth: 2,
-    borderColor: 'red',
-    borderWidth: 2,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    padding: 5 ,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-     alignItems: "center",
-  },
-
-  barcodePoints: {
-    position: "absolute",
-    top: -20,
-    right: 0,
-    backgroundColor: 'red',
-    borderRadius: 50,
-    color: "#fff",
-    padding: 20,
-    backgroundColor: '#fff',
-    borderColor: 'red',
-    borderWidth: 2,
-  },
-
-  colLeft: {
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
     width: "100%",
-    // transform: [{ rotate: '90deg'}]
+    height: "100%",
+  },
+  scrollArea: {
+    width: "100%",
+    marginBottom: 80,
   },
   bgImage: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%'
+    position: "absolute",
+    width: "100%",
+    height: "100%",
   },
-
-
-  sliderTitle: {
-    color: '#fff',
-    fontSize: 17,
-    marginBottom: 15
-  },
-
-
-
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    borderRadius: 8,
-  },
-  sliderImage: {
-    height: '100%',
-    width: '100%',
-    alignSelf: 'center',
-    borderRadius: 8,
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: 15,
-    marginBottom: 10,
-  },
-  categoryBtn: {
-    flex: 1,
-    width: '30%',
-    marginHorizontal: 0,
-    alignSelf: 'center',
-  },
-  categoryBtnBig: {
-    flex: 1,
-    width: '40%',
-    marginHorizontal: 0,
-    alignSelf: 'center',
-  },
-  categoryIcon: {
-    borderWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: 70,
+  logoContainer: {
     height: 70,
-    backgroundColor: '#FF7373' /* '#FF6347' */,
-    borderRadius: 50,
   },
-  categoryIconBig: {
-    borderWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: 90,
-    height: 90,
-    backgroundColor: '#fff' /* '#FF6347' */,
-    borderRadius: 50,
+  barcodeContainer: {
+    marginTop: 0,
+    width: "100%",
+    flex: 1.5,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  categoryBtnTxt: {
-    alignSelf: 'center',
-    marginTop: 5,
-    color: '#fff',
+  barcodeInner: {
+    width: "90%",
+    borderRadius: 15,
+    padding: 5,
+    flex: 1,
+    backgroundColor: "#fff",
+    shadowColor: "#999",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+    justifyContent: "space-around",
+    alignItems: "center",
   },
-  cardsWrapper: {
-    marginTop: 20,
-    width: '90%',
-    alignSelf: 'center',
+  barcodeDescRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  card: {
-    height: 100,
-    marginVertical: 10,
-    flexDirection: 'row',
-    shadowColor: '#999',
-    shadowOffset: {width: 0, height: 1},
+  barcodeDesc: {
+    fontSize: 15,
+    color: "#6AAE36",
+  },
+  barcodePointsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  barcodePointsValue: {
+    fontSize: 29,
+    color: "#6AAE36",
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  barcodePointsText: {
+    fontSize: 10,
+  },
+  toggleRow: {
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 20,
+    paddingBottom: 20,
+    alignSelf: "center",
+  },
+  toggleBtn: {
+    padding: 40,
+    borderRadius: 15,
+    backgroundColor: "#fff",
+    width: "45%",
+    alignItems: "center",
+    borderWidth: 2,
+    shadowColor: "#999",
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
   },
-  cardImgWrapper: {
+  toggleBtnTxt: {
+    marginTop: 10,
+  },
+  categoryContainer: {
+    position: "absolute",
+    bottom: 0,
+    borderRadius: 15,
+    flexDirection: "row",
+    width: "90%",
+    alignSelf: "center",
+    marginTop: 15,
+    marginBottom: 10,
+    backgroundColor: "#fff",
+    shadowColor: "#999",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
+  categoryBtn: {
     flex: 1,
+    width: "30%",
+    marginHorizontal: 0,
+    alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  cardImg: {
-    height: '100%',
-    width: '100%',
-    alignSelf: 'center',
-    borderRadius: 8,
-    borderBottomRightRadius: 0,
-    borderTopRightRadius: 0,
+  categoryIcon: {
+    borderWidth: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
   },
-  cardInfo: {
-    flex: 2,
-    padding: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
-    backgroundColor: '#fff',
-  },
-  cardTitle: {
-    fontWeight: 'bold',
-  },
-  cardDetails: {
+  categoryBtnTxt: {
     fontSize: 12,
-    color: '#444',
+    alignSelf: "center",
+    marginTop: 5,
+    color: "#000",
+  },
+  SliderWrapper: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "95%",
+    alignSelf: "flex-end",
+  },
+  NewsItemBlock: {
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    width: 220,
+    marginRight: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  NewsItemImage: {
+    width: 139,
+    height: 83,
+    borderRadius: 5,
+  },
+  NewsItemTitle: {
+    fontSize: 12,
+    width: "50%",
+    padding: 10,
+  },
+  NewsItemDesc: {},
+  productItem: {
+    width: 160,
+    padding: 5,
+    marginRight: 15,
+  },
+  productItemWrapper: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  productImage: {
+    width: 120,
+    height: 90,
+    borderRadius: 15,
+    marginTop: -20,
+    zIndex: 10,
+  },
+
+  ProductItemBlock: {
+    width: 160,
+    padding: 5,
+    marginRight: 15,
+  },
+  ProductItemWrapper: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  ProductItemImage: {
+    width: 120,
+    height: 90,
+    borderRadius: 15,
+    marginTop: -20,
+    zIndex: 10,
+  },
+  ProductItemTitle: {
+    width: 118,
+    height: 55,
+  },
+  ProductItemPrice: {
+    position: "absolute",
+    backgroundColor: "#fff",
+    color: "#000",
+    fontSize: 10,
+    zIndex: 30,
+    right: 30,
+    top: -10,
+    padding: 5,
+    borderRadius: 5,
   },
 });

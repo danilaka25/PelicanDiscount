@@ -16,14 +16,12 @@ import {
 
 
 import HTMLView from 'react-native-htmlview';
+import Header from '../components/Header';
 
 
 
+import bgImage from "../assets/pattern2.jpg";
 
-import bgImage from "../assets/bg4.jpg";
-import imageAfter from "../assets/imageAfter.png";
-
-import imageBefore from "../assets/imageBefore.png";
 
 
 
@@ -32,13 +30,13 @@ const win = Dimensions.get('window');
 const ratio = win.width/300; //541 is actual image width
   
 
-const NewsItemDetails = ({route}) => {
+const NewsItemDetails = ({route, navigation}) => {
   const itemData = route.params.itemData;
  
   return (
-<ImageBackground source={bgImage} resizeMode='cover' style={styles.bgImage}> 
+<ImageBackground source={bgImage} resizeMode='repeat' style={styles.bgImage}> 
   
-   
+<Header navigation={navigation} showBack={true} showReload={false} />
    
  
 
@@ -83,7 +81,8 @@ export default NewsItemDetails;
 
 const styles = StyleSheet.create({
   bgImage: {
-    alignItems: 'center' ,
+    position: 'absolute',
+    width: '100%',
     height: '100%'
   },
   scrollArea: {

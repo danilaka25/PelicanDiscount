@@ -10,24 +10,42 @@ import {
   Platform,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { markers, mapStandardStyle } from '../model/mapData';
+
 import { useTheme } from '@react-navigation/native';
+import Header from '../components/Header';
+
+const mapStandardStyle = [
+  {
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+];
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const ExploreScreen = ({navigation}) => {
+const ExploreScreen = ({ route, navigation}) => {
+
+
+
+  console.log("route", route.params)
+
   const theme = useTheme();
   const initialMapState = {
-    markers,
-    region: {
-      latitude: 50.41429494075907, 
-      longitude: 30.520019533835047, 
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
+    markers: route.params.places,
+    region: route.params.initalRegion[0],
+    // region: {
+    //   latitude: 50.41429494075907, 
+    //   longitude: 30.520019533835047, 
+    //   latitudeDelta: 0.0922,
+    //   longitudeDelta: 0.0421,
+    // },
   };
 
   const [state, setState] = React.useState(initialMapState);
@@ -36,6 +54,10 @@ const ExploreScreen = ({navigation}) => {
   let mapAnimation = new Animated.Value(0);
 
   useEffect(() => {
+
+    //setState({markers: route.params.places})
+
+
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
       if (index >= state.markers.length) {
@@ -96,7 +118,7 @@ const ExploreScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      
+      <Header navigation={navigation} showBack={true} showReload={false} />
       <MapView
         ref={_map}
         initialRegion={state.region}
@@ -159,26 +181,14 @@ const ExploreScreen = ({navigation}) => {
         {state.markers.map((marker, index) =>(
           <View style={styles.card} key={index}>
             <Image 
-              source={marker.image}
+              source={{uri:marker.image}}
               style={styles.cardImage}
               resizeMode="cover"
             />
             <View style={styles.textContent}>
               <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
                <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
-              <View style={styles.button}>
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={[styles.signIn, {
-                    borderColor: 'red',
-                    borderWidth: 1
-                  }]}
-                >
-                  <Text style={[styles.textSign, {
-                    color: 'red'
-                  }]}>Подробнее</Text>
-                </TouchableOpacity>
-              </View>
+               
             </View>
           </View>
         ))}
@@ -229,15 +239,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   textContent: {
-    flex: 2,
+    flex: 1,
     padding: 10,
   },
   cardtitle: {
     fontSize: 12,
-    // marginTop: 5,
     fontWeight: "bold",
   },
   cardDescription: {
+    fontSize: 12,
+    color: "#444",
+  },
+  cardTime: {
     fontSize: 12,
     color: "#444",
   },
@@ -262,8 +275,5 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 3
   },
-  textSign: {
-      fontSize: 14,
-      fontWeight: 'bold'
-  }
+  
 });
