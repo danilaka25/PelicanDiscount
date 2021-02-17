@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
+  ActivityIndicator,
+  ScrollView,
   ImageBackground,
   View,
   Text,
@@ -14,7 +16,10 @@ import Carousel from "react-native-snap-carousel";
 import AsyncStorage from "@react-native-community/async-storage";
 import Header from "../components/Header";
 import database from "@react-native-firebase/database";
-import { SvgUri } from "react-native-svg";
+
+
+import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient'
+import Svg, { Rect } from 'react-native-svg'
 
 import bgImage from "../assets/pattern2.jpg";
 import LOGO from "../assets/svg/logo.svg";
@@ -38,9 +43,20 @@ const HomeScreen = ({ navigation }) => {
   const [initalRegion, setInitalRegion] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
 
+
+
+  
+
+  const [loading, setLoading] = useState(true);
+
+
+
+
+
   const _renderNews = ({ item }) => {
     return (
       <TouchableOpacity
+        activeOpacity={1}
         itemData={item}
         onPress={() =>
           navigation.navigate("NewsItemDetails", { itemData: item }, navigation)
@@ -57,7 +73,9 @@ const HomeScreen = ({ navigation }) => {
 
   const _renderProducts = ({ item }) => {
     return (
+      
       <TouchableOpacity
+        activeOpacity={1}
         itemData={item}
         onPress={() =>
           navigation.navigate(
@@ -101,7 +119,7 @@ const HomeScreen = ({ navigation }) => {
 
         for (var key in snapshot.val().places) {
           tempPlaces.push(snapshot.val().places[key]);
-          console.log(snapshot.val().places[key]);
+          //console.log(snapshot.val().places[key]);
         }
 
         for (var key in snapshot.val().initalRegion) {
@@ -112,9 +130,7 @@ const HomeScreen = ({ navigation }) => {
         setProducts(tempProducts);
         setPlaces(tempPlaces);
         setInitalRegion(tempInitalRegion);
-      }).then(
-        console.log('loaded')
-      );
+      });
   };
 
   const getTokenFromStorage = async () => {
@@ -129,13 +145,63 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     getTokenFromStorage();
-    getAllDataFromFirebaseDb();
+    
+    (async () => {
+      await getAllDataFromFirebaseDb();
+      await setLoading(false)
+      await console.log('loaded')
+
+    })();
+   
+   
+   
     console.log("useEffect");
+
+
   }, []);
 
   const changeTab = (n) => {
     setActiveTab(n);
   };
+
+  const renderSlider = (activeTab) => {
+    return(
+      <>
+    {activeTab ? (
+      <View style={styles.SliderWrapper}>
+        <Carousel
+          layout={"default"}
+          loop={true}
+          enableSnap={true}
+          activeSlideAlignment={"start"}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          data={news}
+          sliderWidth={200}
+          itemWidth={220}
+          renderItem={_renderNews}
+          onSnapToItem={(index) => setNewsActiveIndex(index)}
+        />
+      </View>
+    ) : (
+      <View style={styles.SliderWrapper}>
+        <Carousel
+          layout={"default"}
+          loop={true}
+          enableSnap={true}
+          activeSlideAlignment={"start"}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          data={products}
+          sliderWidth={150}
+          itemWidth={160}
+          renderItem={_renderProducts}
+          onSnapToItem={(index) => setActiveProductIndex(index)}
+        />
+      </View>
+    )}
+    </>)
+  }
 
   return (
     <View style={styles.container}>
@@ -175,6 +241,7 @@ const HomeScreen = ({ navigation }) => {
 
         <View style={styles.toggleRow}>
           <TouchableOpacity //style={styles.toggleBtn}
+            activeOpacity={1}
             style={[
               styles.toggleBtn,
               { borderColor: activeTab == 0 ? "#6AAE36" : "transparent" },
@@ -193,6 +260,7 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            activeOpacity={1}
             style={[
               styles.toggleBtn,
               { borderColor: activeTab == 1 ? "#6AAE36" : "transparent" },
@@ -209,41 +277,33 @@ const HomeScreen = ({ navigation }) => {
               Новости
             </Text>
           </TouchableOpacity>
-        </View>
+        </View>   
 
-        {activeTab ? (
-          <View style={styles.SliderWrapper}>
-            <Carousel
-              layout={"default"}
-              loop={true}
-              enableSnap={true}
-              activeSlideAlignment={"start"}
-              inactiveSlideScale={1}
-              inactiveSlideOpacity={1}
-              data={news}
-              sliderWidth={200}
-              itemWidth={220}
-              renderItem={_renderNews}
-              onSnapToItem={(index) => setNewsActiveIndex(index)}
-            />
-          </View>
+
+        {!loading ? (
+           renderSlider(activeTab)
+
         ) : (
-          <View style={styles.SliderWrapper}>
-            <Carousel
-              layout={"default"}
-              loop={true}
-              enableSnap={true}
-              activeSlideAlignment={"start"}
-              inactiveSlideScale={1}
-              inactiveSlideOpacity={1}
-              data={products}
-              sliderWidth={150}
-              itemWidth={160}
-              renderItem={_renderProducts}
-              onSnapToItem={(index) => setActiveProductIndex(index)}
-            />
-          </View>
+          <ScrollView
+          horizontal={true}
+          style={styles.preloadProductsRow}
+        >
+          <SvgAnimatedLinearGradient width={140} height={160}  style={styles.preloadProductItem}>
+              <Rect x="0" y="0" rx="5" ry="0" width="140" height="160"/>
+          </SvgAnimatedLinearGradient>
+          <SvgAnimatedLinearGradient width={140} height={160} style={styles.preloadProductItem}>
+              <Rect x="0" y="0" rx="5" ry="0" width="140" height="160"/>
+          </SvgAnimatedLinearGradient>
+          <SvgAnimatedLinearGradient width={140} height={160}  style={styles.preloadProductItem}>
+              <Rect x="0" y="0" rx="5" ry="0" width="140" height="160"/>
+          </SvgAnimatedLinearGradient>
+        
+        </ScrollView>
         )}
+
+      
+
+
 
         <View style={styles.categoryContainer}>
           <TouchableOpacity
@@ -282,6 +342,8 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.categoryBtnTxt}>Меню</Text>
           </TouchableOpacity>
         </View>
+
+        
       </ImageBackground>
     </View>
   );
@@ -313,7 +375,7 @@ const styles = StyleSheet.create({
   barcodeContainer: {
     marginTop: 0,
     width: "100%",
-    flex: 1.5,
+    height: 180,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -362,11 +424,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     alignSelf: "center",
   },
-  toggleBtn: {
+  toggleBtn: { 
     padding: 40,
     borderRadius: 15,
     backgroundColor: "#fff",
-    width: "45%",
+    width: "48%",
     alignItems: "center",
     borderWidth: 2,
     shadowColor: "#999",
@@ -432,7 +494,7 @@ const styles = StyleSheet.create({
   NewsItemBlock: {
     backgroundColor: "#fff",
     borderRadius: 5,
-    width: 220,
+    width: 200,
     marginRight: 15,
     shadowColor: "#000",
     shadowOffset: {
@@ -520,4 +582,19 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
   },
+  preloadProductsRow: {
+    flex: 2,
+   
+    marginLeft: '5%'
+    
+    
+  },
+  preloadProductItem: {
+    // width: 160,
+    // height: 160,
+    // backgroundColor: '#ccc',
+    marginRight: 5,
+    borderRadius: 15,
+    marginLeft: 0
+  }
 });

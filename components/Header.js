@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import LOGO from '../assets/svg/logo.svg';
 import BACK from '../assets/svg/back.svg';
@@ -7,9 +7,16 @@ import RELOAD from '../assets/svg/reload.svg';
 const Header = (props) => {
   console.log(props.showReload)
 
+  const [uniqueValue, setUniqueValue] = useState(1);
+
+  const forceRemount = () => {
+    setUniqueValue(uniqueValue +1)
+    console.log('header reload')
+  }
+
   const displayReload = () => {
     if (props.showReload) {
-        return <RELOAD style={styles.reload}/>;
+        return <TouchableOpacity style={styles.reload} onPress={() => forceRemount()}><RELOAD/></TouchableOpacity>;
     } else {
         return;
     }

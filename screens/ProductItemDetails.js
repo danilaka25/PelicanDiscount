@@ -22,50 +22,47 @@ import Header from "../components/Header";
 import bgImage from "../assets/pattern2.jpg";
 
 const ProductItemDetails = ({ route, navigation }) => {
-  const itemData = route.params.itemData;
 
-  let priceItems = itemData.variations.length;
+  const itemData = route.params.itemData;
+  let countItems = itemData.variations.length;
 
   const renderPrices = () => {
-    if (priceItems == 1) {
+    if (countItems == 1) {
       return (
         <View style={styles.priceRow}>
           <View style={styles.price_1}>
             <Text>{itemData.variations[0].price}</Text>
-            <Text>{itemData.variations[0].productSize}</Text>
+            <Text>{itemData.variations[0].productSize} {itemData.unit}</Text>
           </View>
         </View>
       );
-    } else if (priceItems == 2) {
+    } else if (countItems == 2) {
       return (
         <View style={styles.priceRow}>
           <View style={styles.price_1}>
             <Text>{itemData.variations[0].price} </Text>
-            <Text>{itemData.variations[0].productSize}</Text>
+            <Text>{itemData.variations[0].productSize} {itemData.unit}</Text>
           </View>
           <View style={styles.price_2}>
             <Text>{itemData.variations[1].price} </Text>
-            <Text>{itemData.variations[1].productSize}</Text>
+            <Text>{itemData.variations[1].productSize} {itemData.unit}</Text>
           </View>
         </View>
       );
-    } else if (priceItems == 3) {
+    } else if (countItems == 3) {
       return (
-        <View style={styles.priceRow}>
-          
+        <View style={styles.priceRow}>     
           <View style={styles.price_1}>
             <Text>{itemData.variations[0].price}</Text>
-            <Text>{itemData.variations[0].productSize}</Text>
+            <Text>{itemData.variations[0].productSize} {itemData.unit}</Text>
           </View>
-
           <View style={styles.price_2}>
             <Text>{itemData.variations[1].price}</Text>
-            <Text>{itemData.variations[1].productSize}</Text>
+            <Text>{itemData.variations[1].productSize} {itemData.unit}</Text>
           </View>
-
           <View style={styles.price_3}>
             <Text>{itemData.variations[2].price}</Text>
-            <Text>{itemData.variations[2].productSize}</Text>
+            <Text>{itemData.variations[2].productSize} {itemData.unit}</Text>
           </View>
         </View>
       );
@@ -87,14 +84,11 @@ const ProductItemDetails = ({ route, navigation }) => {
       <SafeAreaView style={styles.scrollArea}>
       <ScrollView style={styles.scrollView}>
       <Header navigation={navigation} showBack={true} showReload={false} />
-
-
           <View style={styles.productImageBg}>
-            <Image source={{ uri: itemData.img }} style={styles.productImage} />
+            <Image source={{ uri: itemData.img }} style={styles.productImage} resizeMode="cover"/>
           </View>
-
           <View style={styles.section}>
-            {/* <Text>{itemData.variations}</Text> */}
+          <Text style={styles.title}>{itemData.title}</Text>
             {renderPrices()}
             <HTMLView value={itemData.text} stylesheet={styles.title} />
             <Text style={styles.sectionContent}>{itemData.title}</Text>
@@ -108,38 +102,42 @@ const ProductItemDetails = ({ route, navigation }) => {
 export default ProductItemDetails;
 
 const styles = StyleSheet.create({
+   
   priceRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    marginTop: 20,
+    marginBottom: 20
+  },
 
-  },
-  itemPrice: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    height: 70,
-  },
   price_1: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    height: 70,
+    height: 50,
     backgroundColor: "#ccc",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 80
   },
   price_2: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    height: 70,
+    height: 50,
     backgroundColor: "red",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   price_3: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    height: 70,
+    height: 50,
     backgroundColor: "green",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bgImage: {
     paddingBottom: 20,
@@ -160,17 +158,17 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   productImageBg: {
-    marginTop: 90,
+    marginTop: 70,
   },
   productImage: {
-     
-    height: 260,
+    width: '90%', 
+    height: 160,
+    overflow: 'visible',
     borderRadius: 5,
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 10,
   },
-  container: {},
   section: {
     flex: 1,
     width: "90%",
@@ -191,7 +189,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   title: {
-    fontSize: 20,
+    fontSize: 40,
   },
   name: {
     fontWeight: "bold",

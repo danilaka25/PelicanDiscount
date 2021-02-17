@@ -34,7 +34,7 @@ const ExploreScreen = ({ route, navigation}) => {
 
 
 
-  console.log("route", route.params)
+  //console.log("route", route.params)
 
   const theme = useTheme();
   const initialMapState = {

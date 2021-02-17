@@ -38,6 +38,11 @@ import NewsItemDetails from './screens/NewsItemDetails';
 import EditProfileScreen from './screens/EditProfileScreen';
 import SplashScreen from './screens/SplashScreen';
 import SignInScreen from './screens/SignInScreen';
+import ConfirmScreen from './screens/ConfirmScreen';
+
+
+
+
 
 
 import DiscountBigScreen from './screens/DiscountBigScreen';
@@ -178,61 +183,53 @@ const App = ({navigation}) => {
   }
 
 
-  function Home({navigation}) {
-    return (
-      <RootStack.Navigator>
-        <RootStack.Screen
+  const RootStackScreen = ({navigation}) => (
+      <RootStack.Navigator headerMode='none'>
+          <RootStack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }}/>
+          <RootStack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }}/>
+          <RootStack.Screen name="ConfirmScreen" component={ConfirmScreen} options={{ headerShown: false }}/>
+          <RootStack.Screen
             name="HomeScreen"
             component={HomeScreen}
             options={{
                 headerShown: false
-            }}
-            hometext="123"
+            }}   
         />
+      </RootStack.Navigator>
+  );
 
 
-        <RootStack.Screen
-            name="SplashScreen"
-            component={SplashScreen}
+
+
+
+  return (
+    <PaperProvider theme={theme}>
+    <AuthContext.Provider value={authContext}>
+    <NavigationContainer theme={theme}>
+      { state.userToken !== null ? (
+        <Drawer.Navigator headerMode='screen'>
+
+
+
+
+        <Drawer.Screen
+            name="HomeScreen"
+            component={HomeScreen}
             options={{
                 headerShown: false
-            }}
+            }}   
         />
 
-        <RootStack.Screen 
-            name="SignInScreen" 
-            component={SignInScreen}
-            options={{
-                headerShown:false
-            }}
-        />
-
-    
-
-        <RootStack.Screen
+        <Drawer.Screen
             name="ExploreScreen"
             component={ExploreScreen}
             options={{
                 headerShown:false,  
-                // title: 'Заведения на карте',
-                // headerStyle: {
-                //     backgroundColor: 'red',
-                // },
-                // headerTintColor: '#fff',
-                // headerTitleStyle: {
-                //     fontWeight: 'bold',
-                // },
-                //headerTransparent: true,
-                // headerBackground: () => (
-                //   <Image
-                //       style={StyleSheet.absoluteFill}
-                //       source={headerBg}
-                //     />
-                // ),
+
             }} 
         />
 
-      <RootStack.Screen 
+      <Drawer.Screen 
             name="DiscountBigScreen" 
             component={DiscountBigScreen}
             options={{
@@ -243,109 +240,43 @@ const App = ({navigation}) => {
 
 
 
-        <RootStack.Screen
+        <Drawer.Screen
             name="ProductItemDetails"
             component={ProductItemDetails}
             options={{
                 headerShown:false,  
-                // headerBackground: () => (
-                //   <Image
-
-                //       source={headerBg}
-                //     />
-                // ),
-                //  headerStyle: {
-                //     height: 74, 
-                //   }
+              
             }}
         />
-        <RootStack.Screen
+        <Drawer.Screen
             name="NewsItemDetails"
             component={NewsItemDetails}
             options={{
               headerShown:false,  
-                // headerBackground: () => (
-                //   <Image
-
-                //       source={headerBg}
-                //     />
-                // ),
-                //  headerStyle: {
-                //     height: 74, 
-                //   }
+                
             }}
         />
 
 
-        <RootStack.Screen
+        <Drawer.Screen
             name="SettingsScreen"
             component={SettingsScreen}
             options={{headerShown: false}}
         />
+        
 
 
 
-      </RootStack.Navigator>
-    );
-  }
-
-
-  return (
-    <PaperProvider theme={theme}>
-    <AuthContext.Provider value={authContext}>
-    <NavigationContainer theme={theme}>
-      { state.userToken !== null ? (
-        <RootStack.Navigator headerMode='screen'>
-
-
-        <Drawer.Screen 
-          name="Home" 
-          component={Home} 
-          options={{
-            headerShown: false
-          }}/>
+      </Drawer.Navigator>
        
         
 
 
 
-    </RootStack.Navigator>
+    
       )
     :
-    <Drawer.Navigator headerMode='none' >
-           
-          
-        <Drawer.Screen 
-            name="SplashScreen" 
-            component={SplashScreen} 
-            options={{
-                headerShown:false
-            }}
-        />
-
-         <Drawer.Screen 
-            name="SignInScreen" 
-            component={SignInScreen}
-            options={{
-                headerShown:false
-            }}
-        />
-        
-
-        <Drawer.Screen 
-            name="HomeScreen" 
-            component={HomeScreen} 
-            options={{
-                headerShown:false
-            }}
-        /> 
-
-
-      
-
-
-
-    </Drawer.Navigator>
+    <RootStackScreen/>
      
     }
     </NavigationContainer>

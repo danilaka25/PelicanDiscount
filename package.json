@@ -38,6 +38,7 @@
     "react-native-share": "3.7.0",
     "react-native-snap-carousel": "4.0.0-beta.4",
     "react-native-svg": "^12.1.0",
+    "react-native-svg-animated-linear-gradient": "^0.4.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-swipe-list-view": "3.2.6",
     "react-native-swiper": "1.6.0",
